@@ -7,6 +7,7 @@ use App\Customer;
 use App\Http\Requests\BankbookRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Morilog\Jalali\Jalalian;
 
 class BankbookController extends Controller
 {
@@ -37,9 +38,8 @@ class BankbookController extends Controller
      */
     public function create(Customer $customer)
     {
-        $max_code = Bankbook::where('customer_id', $customer->id)->max('code');
-        $date = jdate()->format('Y-m-d');
-        return view('owner.bankbooks.create', compact('customer', 'max_code', 'date'));
+        $date = \Morilog\Jalali\CalendarUtils::convertNumbers(jdate()->format('Y/m/d'));
+        return view('owner.bankbooks.create', compact('customer', 'date'));
     }
 
     /**
@@ -48,15 +48,29 @@ class BankbookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BankbookRequest $request, Customer $customer)
+    public function store(Request $request, Customer $customer)
     {
+        $first_balance = (int)\Morilog\Jalali\CalendarUtils::convertNumbers($request->first_balance, true);
+        $monthly = (int)\Morilog\Jalali\CalendarUtils::convertNumbers($request->monthly, true);
+        $created_date = \Morilog\Jalali\CalendarUtils::convertNumbers($request->created_date, true);
+        $request->merge(array(
+            'first_balance' => $first_balance,
+            'monthly' => $monthly,
+            'created_date' => $created_date
+        ));
+        $code = Bankbook::where('customer_id', $customer->id)->max('code') + 1;
+        $request->request->add(['code' => $code]);
+        if (!$request->title) {
+            $request->request->add(['title' => $customer->fname . ' ' . $customer->lname]);
+        }
         $request->validate([
-            'code' => Rule::unique('bankbooks')->where(function ($query) use ($customer) {
-                return $query->where('customer_id', $customer->id);
-            })
+            'first_balance' => 'required|numeric',
+            'monthly' => 'required|numeric',
+            'created_date' => 'required|date_format:Y/m/d',
+            'closed_date' => 'nullable|date_format:Y/m/d'
         ]);
-        $customer->createBankbook($request);
 
+        $customer->createBankbook($request);
         return redirect('/customers/'.$customer->id);
     }
 
@@ -68,7 +82,10 @@ class BankbookController extends Controller
      */
     public function show(Bankbook $bankbook)
     {
-        return view('owner.bankbooks.show', compact('bankbook'));
+        $updated_at = jdate($bankbook->updated_at)->format('H:i:s  Y/m/d');
+        $created_date = date('Y/m/d', strtotime($bankbook->created_date));
+
+        return view('owner.bankbooks.show', compact('bankbook', 'updated_at', 'created_date'));
     }
 
     /**
@@ -79,7 +96,8 @@ class BankbookController extends Controller
      */
     public function edit(Bankbook $bankbook)
     {
-        return view('owner.bankbooks.edit', compact('bankbook'));
+        $created_date = date('Y/m/d', strtotime($bankbook->created_date));
+        return view('owner.bankbooks.edit', compact('bankbook', 'created_date'));
     }
 
     /**
@@ -89,12 +107,25 @@ class BankbookController extends Controller
      * @param  \App\Bankbook  $bankbook
      * @return \Illuminate\Http\Response
      */
-    public function update(BankbookRequest $request, Bankbook $bankbook)
+    public function update(Request $request, Bankbook $bankbook)
     {
+        $first_balance = (int)\Morilog\Jalali\CalendarUtils::convertNumbers($request->first_balance, true);
+        $monthly = (int)\Morilog\Jalali\CalendarUtils::convertNumbers($request->monthly, true);
+        $created_date = \Morilog\Jalali\CalendarUtils::convertNumbers($request->created_date, true);
+        $request->merge(array(
+            'first_balance' => $first_balance,
+            'monthly' => $monthly,
+            'created_date' => $created_date
+        ));
         $request->validate([
-            'code' => Rule::unique('bankbooks')->where(function ($query) use ($bankbook) {
+            'code' => ['required', 'numeric', Rule::unique('bankbooks')->where(function ($query) use ($bankbook) {
                 return $query->where('customer_id', $bankbook->id);
-            })->ignore($bankbook->customer->id)
+            })->ignore($bankbook->customer->id)],
+            'first_balance' => 'required|numeric',
+            'monthly' => 'required|numeric',
+            'created_date' => 'required|date_format:Y/m/d',
+            'closed_date' => 'nullable|date_format:Y/m/d'
+
         ]);
         $bankbook->update($request->all());
         return redirect('/bankbooks/'.$bankbook->id);

@@ -61,7 +61,8 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        return view('owner.Loans.show', compact('loan'));
+        $updated_at = jdate($loan->updated_at)->format('H:i:s  Y-m-d');
+        return view('owner.Loans.show', compact('loan', 'updated_at'));
     }
 
     /**

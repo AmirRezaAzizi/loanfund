@@ -1,75 +1,70 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">ایجاد دفتر پس انداز</h1>
+    <h1 class="h2">اطلاعات قسط دریافتی</h1>
 @endsection
 
 @section('content')
-    <form method="POST" action="/customers/{{ $customer->id }}/bankbooks" class="needs-validation" novalidate>
+    <form method="POST" action="/loans/{{ $loan->id }}/receipts" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control" id="code" value="{{ $customer->id }}" readonly>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-5">
                 <label for="fname">عضو اصلی</label>
-                <input type="text" class="form-control" id="fname" value="{{ $customer->fname }} {{ $customer->lname }}" readonly>
+                <input type="text" class="form-control" id="fname" value="{{ $loan->bankbook->customer->fname }} {{ $loan->bankbook->customer->lname }}" readonly>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="code">شماره عضویت</label>
+                <input type="number" class="form-control" id="code" value="{{ $loan->bankbook->customer->id }}" readonly>
             </div>
         </div>
         <div class="form-row">
+
             <div class="form-group col-md-5">
                 <label for="title">عنوان دفترچه</label>
-                <div class="input-group mb-2">
-                    ‍<input type="text" class="form-control text-left @if ($errors->has('title')) is-invalid @endif" id="title" name="title" value="{{ old('title') }}">
-                </div>
-                <p>در صورت خالی بودن این فیلد، نام و نام خانوادگی عضو نمایش داده می شود.</p>
+                <input type="text" class="form-control" id="title" value="{{ $loan->bankbook->title }}" readonly>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="code">شماره دفترچه</label>
+                <input type="text" class="form-control" id="code" value="{{ $loan->bankbook->customer->id }}/{{ $loan->bankbook->code }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="first_balance">مبلغ افتتاح حساب</label>
+                <label>مانده فعلی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ old('first_balance') }}">
+                    ‍‍  <input type="number" class="form-control text-left" value="{{ $balance }}" readonly>
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
                 </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
-                </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="monthly">مبلغ ماهیانه</label>
+                <label for="amount">مبلغ قبض</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ old('monthly') }}">
+                    ‍‍  <input type="number" class="form-control text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ old('amount') }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
                 </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
-                </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="created_date">تاریخ ثبت</label>
+                <label for="date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $date) }}" pattern="{4}/{2}/{2}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('date')) is-invalid @endif" id="date" name="date" required value="{{ old('date', $date) }}" pattern="(?:13|14)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9]||3[0])|(?:(0[1-6])-31))">
                     <div class="input-group-prepend">
                         <div class="input-group-text">xxxx-xx-xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
-                  تاریخ باید اعداد انگلیسی و بصورت تاریخ شمسی باشد مانند: ۱۳۹۷/۰۸/۱۸
+                    تاریخ باید اعداد انگلیسی و بصورت تاریخ شمسی باشد مانند: ۱۳۹۷/۰۸/۱۸
                 </div>
             </div>
         </div>
+
         <div class="form-row">
             <div class="col-md-10">
                 <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>

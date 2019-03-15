@@ -6,6 +6,7 @@ use App\Customer;
 use App\Http\Requests\CustomerRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Morilog\Jalali\Jalalian;
 
 class CustomerController extends Controller
 {
@@ -28,8 +29,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $max_code = Customer::max('code');
-        return view('owner.customers.create', compact('max_code'));
+        return view('owner.customers.create');
     }
 
     /**
@@ -40,12 +40,9 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $request->validate([
-            'code' => 'unique:customers,code'
-        ]);
-        Customer::create($request->all());
+        $customer = Customer::create($request->all());
 
-        return redirect('/customers');
+        return redirect('/customers/' . $customer->id);
     }
 
     /**
@@ -56,7 +53,9 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('owner.customers.show', compact('customer'));
+        $created_at = jdate($customer->created_at)->format('H:i:s  Y/m/d');
+        $updated_at = jdate($customer->updated_at)->format('H:i:s  Y/m/d');
+        return view('owner.customers.show', compact('customer', 'created_at', 'updated_at'));
     }
 
     /**

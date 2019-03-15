@@ -9,15 +9,14 @@
         <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
-                <th colspan="5" style="border: 0"></th>
+                <th colspan="4" style="border: 0"></th>
                 <th colspan="2" class="text-center">مانده</th>
                 <th colspan="2" style="border: 0"></th>
             </tr>
             <tr>
                 <th>ردیف</th>
                 <th>کد دفتر</th>
-                <th>نام خانوادگی</th>
-                <th>نام</th>
+                <th>عنوان</th>
                 <th>مبلغ پس انداز ماهیانه</th>
                 <th>پس انداز</th>
                 <th>وام</th>
@@ -29,9 +28,8 @@
             @foreach($bankbooks as $index => $bankbook)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ sprintf("%04d", $bankbook->customer->code) }}{{ sprintf("%03d", $bankbook->code) }}</td>
-                    <td>{{ $bankbook->customer->lname }}</td>
-                    <td>{{ $bankbook->customer->fname }}</td>
+                    <td>{{ $bankbook->customer->id }}/{{ $bankbook->code }}</td>
+                    <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
                     <td>{{ $bankbook->monthly }}</td>
                     <td>{{ $bankbook->first_balance }}</td>
                     <td>-</td>

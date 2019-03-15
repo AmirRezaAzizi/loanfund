@@ -27,10 +27,10 @@ class CustomerRequest extends FormRequest
             'code' => 'required|numeric|digits:4',
             'fname' => 'required|max:255',
             'lname' => 'required|max:255',
-            'national' => 'nullable|numeric|digits:10',
-            'mobile' => 'required|numeric|digits:11',
-            'phone' => 'nullable|numeric|digits:11',
-            'post' => 'nullable|numeric'
+            'national' => 'nullable|max:10',
+            'mobile' => 'required|max:11',
+            'phone' => 'nullable|max:11',
+            'post' => 'nullable|max:10'
         ];
     }
 }

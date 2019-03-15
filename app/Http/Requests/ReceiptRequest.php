@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BankbookRequest extends FormRequest
+class ReceiptRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class BankbookRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'date' => 'required|date_format:Y-m-d',
+            'amount' => 'required|numeric',
+            'balance' => 'nullable|numeric',
         ];
     }
 }

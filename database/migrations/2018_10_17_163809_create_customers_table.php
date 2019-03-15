@@ -16,7 +16,6 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code')->length(4)->unsigned();
             $table->string('fname', 30);
             $table->string('lname', 30);
             $table->string('status', 10)->default('active');

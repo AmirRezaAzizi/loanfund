@@ -1,9 +1,9 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">مشتریان
+    <h1 class="h2">لیست اعضا اصلی
         <a href="customers/create">
-            <button type="button" class="btn btn-outline-primary btn-sm">ثبت مشتری جدید</button>
+            <button type="button" class="btn btn-outline-primary btn-sm">ایجاد عضو جدید</button>
         </a>
     </h1>
 @endsection
@@ -14,7 +14,7 @@
         <thead>
         <tr>
             <th>ردیف</th>
-            <th>شماره مشتری</th>
+            <th>شماره عضویت</th>
             <th>نام خانوادگی</th>
             <th>نام</th>
             <th>عملیات</th>
@@ -24,7 +24,7 @@
         @foreach($customers as $index => $customer)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ sprintf("%04d", $customer->code) }}</td>
+                <td>{{ $customer->id }}</td>
                 <td>{{ $customer->lname }}</td>
                 <td>{{ $customer->fname }}</td>
                 <td>

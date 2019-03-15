@@ -38,18 +38,43 @@ Route::prefix('bankbooks')->group(function () {
     Route::get('/{bankbook}', 'BankbookController@show');
     Route::put('/{bankbook}', 'BankbookController@update');
     Route::get('/{bankbook}/edit', 'BankbookController@edit');
+
+    //loan
     Route::get('/{bankbook}/loans/create', 'LoanController@create');
     Route::post('/{bankbook}/loans', 'LoanController@store');
 
+    //receipt
+    Route::get('/{bankbook}/receipts/create', 'BankbookReceiptController@create');
+    Route::post('/{bankbook}/receipts', 'BankbookReceiptController@store');
+
 });
 
-// Bankbooks
+// Loans
 Route::prefix('loans')->group(function () {
     Route::get('/', 'LoanController@index');
     Route::get('/inactive', 'LoanController@ia_index');
     Route::get('/{loan}', 'LoanController@show');
     Route::put('/{loan}', 'LoanController@update');
     Route::get('/{loan}/edit', 'LoanController@edit');
+
+    //receipt
+    Route::get('/{loan}/receipts/create', 'LoanReceiptController@create');
+    Route::post('/{loan}/receipts', 'LoanReceiptController@store');
+
+});
+
+// Bankbook Receipts
+Route::prefix('bankbookReceipts')->group(function () {
+    Route::get('/{bankbookReceipt}/edit', 'BankbookReceiptController@edit');
+    Route::put('/{bankbookReceipt}', 'BankbookReceiptController@update');
+//    Route::delete('/{bankbookReceipt}', 'BankbookReceiptController@destroy');
+
+});
+
+// Bankbook Receipts
+Route::prefix('loanReceipts')->group(function () {
+    Route::get('/{loanReceipt}/edit', 'LoanReceiptController@edit');
+    Route::put('/{loanReceipt}', 'LoanReceiptController@update');
 
 });
 

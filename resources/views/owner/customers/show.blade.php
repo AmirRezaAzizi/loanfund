@@ -1,7 +1,7 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">اطلاعات مشتری
+    <h1 class="h2">اطلاعات عضو اصلی
         <a href="/customers/{{ $customer->id }}/edit">
             <button type="button" class="btn btn-outline-primary btn-sm">ویرایش</button>
         </a>
@@ -17,24 +17,26 @@
     <table class="table table-striped" style="table-layout: fixed;">
         <tbody>
             <tr>
-                <th>شماره مشتری</th>
-                <td>{{ sprintf("%04d", $customer->code) }}</td>
+                <th>شماره عضویت</th>
+                <td>{{ $customer->id }}</td>
             </tr>
             <tr>
-                <th>نام مشتری</th>
+                <th>نام</th>
                 <td>{{ $customer->fname }} {{ $customer->lname }}</td>
             </tr>
+            @if($customer->description)
+                <tr>
+                    <th>توضیحات</th>
+                    <td>{{ $customer->description }}</td>
+                </tr>
+            @endif
         </tbody>
     </table>
     <table class="table table-striped collapse" id="collapseTable" style="margin-top: -1rem; table-layout: fixed;">
         <tbody>
             <tr>
                 <th>وضعیت</th>
-                <td>
-                    @if($customer->status == 'active')
-                        فعال
-                    @endif
-                </td>
+                <td class="{{ $customer->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $customer->status == 'active' ? 'فعال' : 'غیرفعال' }}</td>
             </tr>
             <tr>
                 <th>نام پدر</th>
@@ -74,30 +76,31 @@
             </tr>
             <tr>
                 <th>تاریخ آخرین ویرایش</th>
-                <td>{{ $customer->updated_at }}</td>
+                <td>{{ $updated_at }}</td>
             </tr>
             <tr>
                 <th>تاریخ ثبت</th>
-                <td>{{ $customer->created_at }}</td>
+                <td>{{ $created_at }}</td>
             </tr>
         </tbody>
     </table>
-    <h2>دفاتر مشتری
+    <h2>دفاتر
         <a href="/customers/{{ $customer->id }}/bankbooks/create">
-            <button type="button" class="btn btn-outline-primary btn-sm">ثبت دفتر جدید</button>
+            <button type="button" class="btn btn-outline-primary btn-sm">ایجاد دفتر جدید</button>
         </a>
     </h2>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
-                <th colspan="3" style="border: 0"></th>
+                <th colspan="4" style="border: 0"></th>
                 <th colspan="2" class="text-center">مانده</th>
                 <th colspan="2" style="border: 0"></th>
             </tr>
             <tr>
                 <th>ردیف</th>
                 <th>کد دفتر</th>
+                <th>عنوان</th>
                 <th>ماهیانه</th>
                 <th>پس انداز</th>
                 <th>وام</th>
@@ -109,7 +112,8 @@
             @foreach($customer->bankbooks as $index => $bankbook)
                 <tr class="{{ $bankbook-> status == 'inactive' ? 'inactive-bg' : '' }}">
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ sprintf("%04d", $bankbook->customer->code) }}{{ sprintf("%03d", $bankbook->code) }}</td>
+                    <td>{{ $bankbook->customer->code }}{{ $bankbook->code }}</td>
+                    <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
                     <td>{{ $bankbook->monthly }}</td>
                     <td>{{ $bankbook->first_balance }}</td>
                     <td>-</td>
@@ -124,7 +128,7 @@
         </table>
     </div>
 
-    <h2>وام های مشتری</h2>
+    <h2>وام ها</h2>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-sm">
             <thead>
@@ -154,7 +158,7 @@
                         <td>{{ $loan->id }}</td>
                         <td>{{ sprintf("%04d", $loan->bankbook->customer->code) }}{{ sprintf("%03d", $loan->bankbook->code) }}</td>
                         <td>{{ $loan->total }}</td>
-                        <td>{{ $loan->debit }}</td>
+                        <td>{{ $loan->now_balance() }}</td>
                         <td>{{ $loan->monthly }}</td>
                         <td>{{ $loan->total_number }}</td>
                         <td>-</td>

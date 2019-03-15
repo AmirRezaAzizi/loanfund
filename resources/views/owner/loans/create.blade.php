@@ -1,30 +1,30 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">ایجاد و ثبت دفترچه وام</h1>
+    <h1 class="h2">اطلاعات وام</h1>
 @endsection
 
 @section('content')
-    <form method="POST" action="/bankbooks/{{ $bankbook->customer->id }}/loans" class="needs-validation" novalidate>
+    <form method="POST" action="/bankbooks/{{ $bankbook->id }}/loans" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="code">شماره مشتری</label>
-                <input type="number" class="form-control" id="code" value="{{ sprintf("%04d", $bankbook->customer->code) }}" readonly>
+                <label for="fname">عضو اصلی</label>
+                <input type="text" class="form-control" id="fname" value="{{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="code">شماره دفترچه</label>
-                <input type="number" class="form-control" id="code" value="{{ sprintf("%04d", $bankbook->customer->code) }}{{ sprintf("%03d", $bankbook->code) }}" readonly>
+                <label for="code">شماره عضویت</label>
+                <input type="number" class="form-control" id="code" value="{{ $bankbook->customer->id }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">نام</label>
-                <input type="text" class="form-control" id="fname" value="{{ $bankbook->customer->fname }}" readonly>
+                <label for="title">عنوان دفترچه</label>
+                <input type="text" class="form-control" id="title" value="{{ $bankbook->title }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="lname">نام خانوادگی</label>
-                <input type="text" class="form-control" id="lname" value="{{ $bankbook->customer->lname }}" readonly>
+                <label for="code">شماره دفتر</label>
+                <input type="text" class="form-control" id="code" value="{{ $bankbook->customer->id }}/{{ $bankbook->code }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -34,6 +34,18 @@
                     ‍‍  <input type="number" class="form-control text-left @if ($errors->has('total')) is-invalid @endif" id="total" name="total" required value="{{ old('total') }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
+                </div>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="total_number">تعداد کل اقساط</label>
+                <div class="input-group mb-2">
+                    ‍‍<input type="number" class="form-control text-left @if ($errors->has('total_number')) is-invalid @endif" id="total_number" name="total_number" required value="{{ old('total_number') }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">قسط</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
@@ -54,22 +66,6 @@
                     مبلغ باید فقط شامل اعداد انگلیسی باشد.
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="total_number">تعداد کل اقساط</label>
-                <div class="input-group mb-2">
-                    ‍‍<input type="number" class="form-control text-left @if ($errors->has('total_number')) is-invalid @endif" id="total_number" name="total_number" required value="{{ old('total_number') }}">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">قسط</div>
-                    </div>
-                </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="created_date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
@@ -85,7 +81,7 @@
         </div>
         <div class="form-row">
             <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت وام و ایجاد دفترچه</button>
+                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
             </div>
         </div>
         <div class="row my-3">

@@ -12,19 +12,27 @@
         <tbody>
         <tr>
             <th>شماره دفتر</th>
-            <td>{{ sprintf('%04d', $bankbook->customer->code) }}{{ sprintf('%03d', $bankbook->code) }}</td>
+            <td>{{ $bankbook->customer->id }}/{{ $bankbook->code }}</td>
         </tr>
         <tr>
             <th>وضعیت</th>
             <td class="{{ $bankbook->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $bankbook->status == 'active' ? 'فعال' : 'غیرفعال' }}</td>
         </tr>
         <tr>
-            <th>نام مشتری</th>
+            <th>عضو اصلی</th>
             <td>{{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }}</td>
+        </tr>
+        <tr>
+            <th>عنوان دفترچه</th>
+            <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
         </tr>
         <tr>
             <th>شماره موبایل</th>
             <td>{{ $bankbook->customer->mobile }}</td>
+        </tr>
+        <tr>
+            <th>مبلغ افتتاح حساب</th>
+            <td>{{ $bankbook->first_balance }}</td>
         </tr>
         <tr>
             <th>مبلغ پس انداز ماهیانه</th>
@@ -44,13 +52,17 @@
         </tr>
         <tr>
             <th>تاریخ ثبت</th>
-            <td>{{ $bankbook->created_date }}</td>
+            <td>{{ $created_date }}</td>
+        </tr>
+        <tr>
+            <th>تاریخ آخرین ویرایش</th>
+            <td>{{ $updated_at }}</td>
         </tr>
         </tbody>
     </table>
-    <h2>قبض ها
-        <a href="/bankbooks/show">
-            <button type="button" class="btn btn-outline-primary btn-sm">ثبت قبض جدید</button>
+    <h2>دریافت و پرداخت ها
+        <a href="/bankbooks/{{ $bankbook->id }}/receipts/create">
+            <button type="button" class="btn btn-outline-primary btn-sm">ایجاد قبض جدید</button>
         </a>
     </h2>
     <div class="table-responsive">
@@ -60,25 +72,25 @@
                 <th>ردیف</th>
                 <th>کد قبض</th>
                 <th>تاریخ</th>
-                <th>مبلغ</th>
-                <th>موجودی</th>
+                <th>دریافت</th>
+                <th>پرداخت</th>
                 <th>عملیات</th>
             </tr>
             </thead>
             <tbody>
 
-            @for($i = 1; $i <=9 ; $i++)
+            @foreach($bankbook->bankbookReceipts as $key => $receipt)
                 <tr>
-                    <th>{{ $i }}</th>
-                    <th>2800100{{ $i }}</th>
-                    <th>۹۷/۰۱/۲۸</th>
-                    <th>۵۰</th>
-                    <th>{{ 4000 + $i * 50 }}</th>
+                    <td>{{ $key+1 }}</td>
+                    <td>{{ $receipt->id }}</td>
+                    <td>{{ $receipt->date }}</td>
+                    <td>{{ $receipt->amount }}</td>
+                    <td></td>
                     <td>
-                        <a href="/bankbooks/show" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                        <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
                     </td>
                 </tr>
-            @endfor
+            @endforeach
             </tbody>
         </table>
     </div>

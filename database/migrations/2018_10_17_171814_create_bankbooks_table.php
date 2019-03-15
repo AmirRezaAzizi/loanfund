@@ -16,7 +16,8 @@ class CreateBankbooksTable extends Migration
         Schema::create('bankbooks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id');
-            $table->integer('code')->length(3)->unsigned();;
+            $table->integer('code')->length(3)->unsigned();
+            $table->string('title')->nullable();
             $table->string('status', 10)->default('active');
             $table->integer('first_balance');
             $table->integer('monthly');
