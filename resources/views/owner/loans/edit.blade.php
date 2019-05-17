@@ -15,7 +15,7 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control" id="code" value="{{ $loan->bankbook->customer->id }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -25,32 +25,26 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره دفتر</label>
-                <input type="text" class="form-control" id="code" value="{{ $loan->bankbook->customer->id }}/{{ $loan->bankbook->code }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="total">مبلغ وام</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left @if ($errors->has('total')) is-invalid @endif" id="total" name="total" required value="{{ old('total', $loan->total) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('total')) is-invalid @endif" id="total" name="total" required value="{{ convertNumbers(old('total', $loan->total)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
-                </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
                 </div>
             </div>
             <div class="form-group col-md-5">
                 <label for="total_number">تعداد کل اقساط</label>
                 <div class="input-group mb-2">
-                    ‍‍<input type="number" class="form-control text-left @if ($errors->has('total_number')) is-invalid @endif" id="total_number" name="total_number" required value="{{ old('total_number', $loan->total_number) }}">
+                    ‍‍<input type="text" class="form-control text-left @if ($errors->has('total_number')) is-invalid @endif" id="total_number" name="total_number" required value="{{ convertNumbers(old('total_number', $loan->total_number)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">قسط</div>
                     </div>
-                </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
                 </div>
             </div>
         </div>
@@ -58,7 +52,7 @@
             <div class="form-group col-md-5">
                 <label for="monthly">مبلغ ماهیانه</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ old('monthly', $loan->monthly) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ convertNumbers(old('monthly', $loan->monthly)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -70,9 +64,9 @@
             <div class="form-group col-md-5">
                 <label for="created_date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $loan->created_date) }}" pattern="(?:13|14)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9]||3[0])|(?:(0[1-6])-31))">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $loan->created_date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">xxxx-xx-xx</div>
+                        <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
@@ -91,9 +85,9 @@
             <div class="form-group col-md-5">
                 <label for="closed_date">تاریخ غیرفعالسازی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ old('closed_date', $loan->closed_date) }}" pattern="(?:13|14)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9]||3[0])|(?:(0[1-6])-31))">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ old('closed_date', $loan->closed_date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">xxxx-xx-xx</div>
+                        <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">

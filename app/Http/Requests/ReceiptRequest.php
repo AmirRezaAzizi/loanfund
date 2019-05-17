@@ -24,7 +24,7 @@ class ReceiptRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date_format:Y-m-d',
+            'date' => 'required',
             'amount' => 'required|numeric',
             'balance' => 'nullable|numeric',
         ];

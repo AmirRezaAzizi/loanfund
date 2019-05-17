@@ -138,6 +138,7 @@ return [
         "size" => "اندازه",
         "first_balance" => "پس انداز اولیه",
         "balance" => "پس انداز",
+        "monthly" => "ماهیانه",
         "closed_date" => 'تاریخ غیرفعالسازی',
         "created_date" => 'تاریخ ثبت',
     ),

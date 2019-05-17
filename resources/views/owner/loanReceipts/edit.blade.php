@@ -11,7 +11,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="code">شماره مشتری</label>
-                <input type="number" class="form-control" id="code" value="{{ sprintf("%04d", $loanReceipt->loan->bankbook->customer->code) }}" readonly>
+                <input type="number" class="form-control" id="code" value="{{ $loanReceipt->loan->bankbook->customer->id }}" readonly>
             </div>
             <div class="form-group col-md-5">
                 <label for="id">شماره وام</label>
@@ -32,7 +32,7 @@
             <div class="form-group col-md-5">
                 <label>مانده فعلی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left" value="{{ $balance }}" readonly>
+                    ‍‍  <input type="text" class="form-control text-left" value="{{ number_format($balance) }}" readonly>
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -54,9 +54,9 @@
             <div class="form-group col-md-5">
                 <label for="date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('date')) is-invalid @endif" id="date" name="date" required value="{{ old('date', $loanReceipt->date) }}" pattern="(?:13|14)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9]||3[0])|(?:(0[1-6])-31))">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('date')) is-invalid @endif" id="date" name="date" required value="{{ old('date', $loanReceipt->date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">xxxx-xx-xx</div>
+                        <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">

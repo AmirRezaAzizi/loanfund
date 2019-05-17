@@ -6,6 +6,7 @@ use App\Http\Requests\ReceiptRequest;
 use App\Loan;
 use App\LoanReceipt;
 use Illuminate\Http\Request;
+use Morilog\Jalali\CalendarUtils;
 
 class LoanReceiptController extends Controller
 {
@@ -28,7 +29,7 @@ class LoanReceiptController extends Controller
     {
         $balance = 0;
 
-        $date = jdate()->format('Y-m-d');
+        $date = convertNumbers(jdate()->format('Y/m/') . '29');
 
         $balance += $loan->now_balance();
 

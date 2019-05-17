@@ -53,8 +53,6 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        $created_at = jdate($customer->created_at)->format('H:i:s  Y/m/d');
-        $updated_at = jdate($customer->updated_at)->format('H:i:s  Y/m/d');
         return view('owner.customers.show', compact('customer', 'created_at', 'updated_at'));
     }
 
@@ -78,9 +76,12 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $request->validate([
-            'code' => 'unique:customers,code,'.$customer->id,
-        ]);
+        if ($request->status == 'inactive') {
+            $request->validate([
+                'closed_date' => 'required'
+            ]);
+        }
+
         $customer->update($request->all());
         return redirect('/customers/'.$customer->id);
     }

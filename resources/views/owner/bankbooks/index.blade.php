@@ -28,12 +28,12 @@
             @foreach($bankbooks as $index => $bankbook)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $bankbook->customer->id }}/{{ $bankbook->code }}</td>
+                    <td class="text-left">{{ $bankbook->full_code }}</td>
                     <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
-                    <td>{{ $bankbook->monthly }}</td>
-                    <td>{{ $bankbook->first_balance }}</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
+                    <td class="text-left">{{ number_format($bankbook->first_balance) }}</td>
+                    <td class="text-left">-</td>
+                    <td class="text-left">-</td>
                     <td>
                         <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
                         <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>

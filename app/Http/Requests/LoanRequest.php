@@ -24,11 +24,11 @@ class LoanRequest extends FormRequest
     public function rules()
     {
         return [
-            'total' => 'required|numeric',
-            'monthly' => 'required|numeric',
-            'total_number' => 'required|numeric',
-            'created_date' => 'required|date_format:Y-m-d',
-            'closed_date' => 'nullable|date_format:Y-m-d',
+            'total' => 'required',
+            'monthly' => 'required',
+            'total_number' => 'required',
+            'created_date' => 'required',
+            'closed_date' => 'nullable',
         ];
     }
 }

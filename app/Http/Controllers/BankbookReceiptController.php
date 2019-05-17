@@ -6,6 +6,7 @@ use App\Bankbook;
 use App\BankbookReceipt;
 use App\Http\Requests\ReceiptRequest;
 use Illuminate\Http\Request;
+use Morilog\Jalali\CalendarUtils;
 
 class BankbookReceiptController extends Controller
 {
@@ -28,7 +29,7 @@ class BankbookReceiptController extends Controller
     {
         $balance = 0;
 
-        $date = jdate()->format('Y-m-d');
+        $date = convertNumbers(jdate()->format('Y/m/') . '29');
 
         $balance += $bankbook->now_balance();
 

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Bankbook extends Model
+class Bankbook extends BaseModel
 {
     protected $fillable = ['code','title', 'first_balance', 'monthly', 'status', 'description', 'created_date', 'closed_date'];
 
@@ -44,9 +42,14 @@ class Bankbook extends Model
 
             return $this->bankbookReceipts()->create($request->all());
 
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
 
             return $exception->getMessage();
         }
+    }
+
+    public function getFullCodeAttribute()
+    {
+        return "{$this->customer->id}/{$this->code}";
     }
 }

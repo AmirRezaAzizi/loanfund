@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
     <ul>
         <li>تاریخ</li>
         <li>لیست کارها</li>

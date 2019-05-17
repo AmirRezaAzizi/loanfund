@@ -62,7 +62,7 @@
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">xxxx-xx-xx</div>
+                        <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">

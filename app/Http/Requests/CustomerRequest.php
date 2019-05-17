@@ -24,7 +24,6 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|numeric|digits:4',
             'fname' => 'required|max:255',
             'lname' => 'required|max:255',
             'national' => 'nullable|max:10',

@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th>شماره دفترچه پس انداز</th>
-            <td>{{ $loan->bankbook->customer->id }}/{{ $loan->bankbook->code }}</td>
+            <td>{{ $loan->bankbook->full_code }}</td>
         </tr>
         <tr>
             <th>وضعیت</th>
@@ -35,15 +35,15 @@
         </tr>
         <tr>
             <th>مبلغ وام</th>
-            <td>{{ $loan->total }}</td>
+            <td>{{ number_format($loan->total) }}</td>
         </tr>
         <tr>
             <th>مانده بدهی</th>
-            <td>{{ $loan->now_balance() }}</td>
+            <td>{{ number_format($loan->now_balance()) }}</td>
         </tr>
         <tr>
             <th>مبلغ هر قسط</th>
-            <td>{{ $loan->monthly }}</td>
+            <td>{{ number_format($loan->monthly) }}</td>
         </tr>
         <tr>
             <th>اقساط باقی مانده</th>
@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <th>تاریخ آخرین ویرایش</th>
-            <td>{{ $updated_at }}</td>
+            <td>{{ $loan->updated_at }}</td>
         </tr>
         {{--<tr>--}}
             {{--<th>تاریخ سررسید آخرین قسط</th>--}}
@@ -76,7 +76,7 @@
         </a>
     </h2>
     <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
                 <th>ردیف</th>
@@ -91,9 +91,9 @@
             @foreach($loan->loanReceipts as $key => $receipt)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $receipt->id }}</td>
-                    <td>{{ $receipt->date }}</td>
-                    <td>{{ $receipt->amount }}</td>
+                    <td class="text-left">{{ $receipt->id }}</td>
+                    <td class="text-left">{{ $receipt->date }}</td>
+                    <td class="text-left">{{ number_format($receipt->amount) }}</td>
                     <td>
                         <a href="/loanReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
                     </td>

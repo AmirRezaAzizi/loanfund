@@ -36,7 +36,7 @@ class LoanController extends Controller
      */
     public function create(Bankbook $bankbook)
     {
-        $date = jdate()->format('Y-m-d');
+        $date = convertNumbers(jdate()->format('Y/m/d'));
         return view('owner.loans.create', compact('bankbook', 'date'));
     }
 
@@ -61,7 +61,6 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        $updated_at = jdate($loan->updated_at)->format('H:i:s  Y-m-d');
         return view('owner.Loans.show', compact('loan', 'updated_at'));
     }
 
@@ -85,6 +84,12 @@ class LoanController extends Controller
      */
     public function update(LoanRequest $request, Loan $loan)
     {
+        if ($request->status == 'inactive') {
+            $request->validate([
+                'closed_date' => 'required'
+            ]);
+        }
+
         $loan->update($request->all());
         return redirect('/loans/'.$loan->id);
     }

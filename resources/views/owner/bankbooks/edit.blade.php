@@ -11,7 +11,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="text" class="form-control" id="code" value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers($bankbook->customer->id) }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -28,10 +28,7 @@
             <div class="form-group col-md-5">
                 <label for="code">شماره دفترچه</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('code')) is-invalid @endif" id="code" name="code" required value="{{ old('code', sprintf("%03d", $bankbook->code)) }}">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">{{ \Morilog\Jalali\CalendarUtils::convertNumbers(sprintf("%04d", $bankbook->customer->code)) }}</div>
-                    </div>
+                    ‍‍  <input type="text" class="form-control text-left" id="code" value="{{ convertNumbers($bankbook->full_code) }}" readonly>
                 </div>
                 <div class="invalid-feedback">
                     شماره دفترچه الزامی٬ سه رقمی و غیرتکراری می باشد.
@@ -42,7 +39,7 @@
             <div class="form-group col-md-5">
                 <label for="title">عنوان دفترچه</label>
                 <div class="input-group mb-2">
-                    ‍<input type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" id="title" name="title" value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers(old('title', $bankbook->title)) }}">
+                    ‍<input type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" id="title" name="title" value="{{ old('title', $bankbook->title) }}">
                 </div>
                 <p>در صورت خالی بودن این فیلد، نام و نام خانوادگی عضو اصلی نمایش داده می شود.</p>
             </div>
@@ -51,7 +48,7 @@
             <div class="form-group col-md-5">
                 <label for="first_balance">مبلغ افتتاح حساب</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers(old('first_balance', $bankbook->first_balance)) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ convertNumbers(old('first_balance', $bankbook->first_balance)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -65,7 +62,7 @@
             <div class="form-group col-md-5">
                 <label for="monthly">مبلغ ماهیانه</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers(old('monthly', $bankbook->monthly)) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ convertNumbers(old('monthly', $bankbook->monthly)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -79,9 +76,9 @@
             <div class="form-group col-md-5">
                 <label for="created_date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers(old('created_date', $created_date)) }}" pattern="{4}/{2}/{2}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $bankbook->created_date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">xxxx-xx-xx</div>
+                        <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
@@ -102,7 +99,7 @@
             <div class="form-group col-md-5">
                 <label for="closed_date">تاریخ غیرفعالسازی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ \Morilog\Jalali\CalendarUtils::convertNumbers(old('closed_date', $bankbook->closed_date)) }}" pattern="(?:13|14)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9]||3[0])|(?:(0[1-6])-31))">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ old('closed_date', $bankbook->closed_date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">xxxx/xx/xx</div>
                     </div>

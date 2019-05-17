@@ -86,6 +86,20 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
+                <label for="closed_date">تاریخ غیرفعالسازی</label>
+                <div class="input-group mb-2">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ $customer->closed_date }}" pattern="{4}/{2}/{2}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">xxxx/xx/xx</div>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    تاریخ باید اعداد و بصورت تاریخ شمسی باشد مانند: ۱۳۹۷/۰۸/۱۸
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
                 <label for="reference">معرف</label>
                 <input type="text" class="form-control" id="reference" name="reference" value="{{ old('reference', $customer->reference) }}">
             </div>

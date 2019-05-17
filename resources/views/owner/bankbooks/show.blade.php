@@ -10,13 +10,17 @@
 @section('content')
     <table class="table table-striped">
         <tbody>
+
         <tr>
             <th>شماره دفتر</th>
-            <td>{{ $bankbook->customer->id }}/{{ $bankbook->code }}</td>
+            <td>{{ $bankbook->full_code }}</td>
         </tr>
         <tr>
             <th>وضعیت</th>
-            <td class="{{ $bankbook->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $bankbook->status == 'active' ? 'فعال' : 'غیرفعال' }}</td>
+            <td class="{{ $bankbook->status == 'inactive' ? 'inactive-bg' : '' }}">
+                {{ $bankbook->status == 'active' ? 'فعال' :  'غیرفعال شده در ' . $bankbook->closed_date }}
+            </td>
+
         </tr>
         <tr>
             <th>عضو اصلی</th>
@@ -32,48 +36,48 @@
         </tr>
         <tr>
             <th>مبلغ افتتاح حساب</th>
-            <td>{{ $bankbook->first_balance }}</td>
+            <td>{{ number_format($bankbook->first_balance) }}</td>
         </tr>
         <tr>
             <th>مبلغ پس انداز ماهیانه</th>
-            <td>{{ $bankbook->monthly }}</td>
+            <td>{{ number_format($bankbook->monthly) }}</td>
         </tr>
         <tr>
             <th>مانده پس انداز</th>
-            <td>{{ $bankbook->now_balance() }}</td>
+            <td>{{ number_format($bankbook->now_balance()) }}</td>
         </tr>
         <tr>
             <th>مانده وام</th>
-            <td>-</td>
+            <td>{{ number_format(0) }}</td>
         </tr>
         <tr>
             <th>مبلغ قسط</th>
-            <td>-</td>
+            <td>{{  number_format(0) }}</td>
         </tr>
         <tr>
             <th>تاریخ ثبت</th>
-            <td>{{ $created_date }}</td>
+            <td>{{ $bankbook->created_date }}</td>
         </tr>
         <tr>
             <th>تاریخ آخرین ویرایش</th>
-            <td>{{ $updated_at }}</td>
+            <td>{{ $bankbook->updated_at }}</td>
         </tr>
         </tbody>
     </table>
-    <h2>دریافت و پرداخت ها
+    <h2>واریز و برداشت ها
         <a href="/bankbooks/{{ $bankbook->id }}/receipts/create">
             <button type="button" class="btn btn-outline-primary btn-sm">ایجاد قبض جدید</button>
         </a>
     </h2>
     <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
                 <th>ردیف</th>
                 <th>کد قبض</th>
                 <th>تاریخ</th>
-                <th>دریافت</th>
-                <th>پرداخت</th>
+                <th>واریز</th>
+                <th>برداشت</th>
                 <th>عملیات</th>
             </tr>
             </thead>
@@ -82,10 +86,18 @@
             @foreach($bankbook->bankbookReceipts as $key => $receipt)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $receipt->id }}</td>
-                    <td>{{ $receipt->date }}</td>
-                    <td>{{ $receipt->amount }}</td>
-                    <td></td>
+                    <td class="text-left">{{ $receipt->id }}</td>
+                    <td class="text-left">{{ $receipt->date }}</td>
+                    <td class="text-left">
+                        @if($receipt->type == 'deposit')
+                            {{ number_format($receipt->amount) }}
+                        @endif
+                    </td>
+                    <td class="text-left">
+                        @if($receipt->type == 'withdraw')
+                            {{ number_format($receipt->amount) }}
+                        @endif
+                    </td>
                     <td>
                         <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
                     </td>

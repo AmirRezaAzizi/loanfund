@@ -36,7 +36,7 @@
         <tbody>
             <tr>
                 <th>وضعیت</th>
-                <td class="{{ $customer->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $customer->status == 'active' ? 'فعال' : 'غیرفعال' }}</td>
+                <td class="{{ $customer->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $customer->status == 'active' ? 'فعال' : 'غیرفعال در ' . $customer->closed_date }}</td>
             </tr>
             <tr>
                 <th>نام پدر</th>
@@ -75,12 +75,12 @@
                 <td>{{ $customer->sponsor }}</td>
             </tr>
             <tr>
-                <th>تاریخ آخرین ویرایش</th>
-                <td>{{ $updated_at }}</td>
+                <th>تاریخ ثبت</th>
+                <td>{{ $customer->created_at }}</td>
             </tr>
             <tr>
-                <th>تاریخ ثبت</th>
-                <td>{{ $created_at }}</td>
+                <th>آخرین ویرایش</th>
+                <td>{{ $customer->updated_at }}</td>
             </tr>
         </tbody>
     </table>
@@ -112,12 +112,12 @@
             @foreach($customer->bankbooks as $index => $bankbook)
                 <tr class="{{ $bankbook-> status == 'inactive' ? 'inactive-bg' : '' }}">
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $bankbook->customer->code }}{{ $bankbook->code }}</td>
+                    <td class="text-left">{{ $bankbook->full_code }}</td>
                     <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
-                    <td>{{ $bankbook->monthly }}</td>
-                    <td>{{ $bankbook->first_balance }}</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
+                    <td class="text-left">{{ number_format($bankbook->first_balance) }}</td>
+                    <td class="text-left">-</td>
+                    <td class="text-left">-</td>
                     <td>
                         <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
                         <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
@@ -155,14 +155,14 @@
                 @foreach($bankbook->loans as $index => $loan)
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $loan->id }}</td>
-                        <td>{{ sprintf("%04d", $loan->bankbook->customer->code) }}{{ sprintf("%03d", $loan->bankbook->code) }}</td>
-                        <td>{{ $loan->total }}</td>
-                        <td>{{ $loan->now_balance() }}</td>
-                        <td>{{ $loan->monthly }}</td>
-                        <td>{{ $loan->total_number }}</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td class="text-left">{{ $loan->id }}</td>
+                        <td class="text-left">{{ sprintf("%04d", $loan->bankbook->customer->code) }}{{ sprintf("%03d", $loan->bankbook->code) }}</td>
+                        <td class="text-left">{{ number_format($loan->total) }}</td>
+                        <td class="text-left">{{ number_format($loan->now_balance()) }}</td>
+                        <td class="text-left">{{ number_format($loan->monthly) }}</td>
+                        <td class="text-left">{{ number_format($loan->total_number) }}</td>
+                        <td class="text-left">-</td>
+                        <td class="text-left">-</td>
                         <td>
                             <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
                             <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>

@@ -32,16 +32,16 @@
             @foreach($loans as $index => $loan)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $loan->id }}</td>
-                    <td>{{ sprintf('%04d', $loan->bankbook->customer->code) }}{{ sprintf('%03d', $loan->bankbook->code) }}</td>
+                    <td class="text-left">{{ $loan->id }}</td>
+                    <td class="text-left">{{ sprintf('%04d', $loan->bankbook->customer->code) }}{{ sprintf('%03d', $loan->bankbook->code) }}</td>
                     <td>{{ $loan->bankbook->customer->lname }}</td>
                     <td>{{ $loan->bankbook->customer->fname }}</td>
-                    <td>{{ $loan->total }}</td>
-                    <td>{{ $loan->debit }}</td>
-                    <td>{{ $loan->monthly }}</td>
-                    <td>{{ $loan->total_number }}</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td class="text-left">{{ number_format($loan->total) }}</td>
+                    <td class="text-left">{{ number_format($loan->debit) }}</td>
+                    <td class="text-left">{{ number_format($loan->monthly) }}</td>
+                    <td class="text-left">{{ $loan->total_number }}</td>
+                    <td class="text-left">-</td>
+                    <td class="text-left">-</td>
                     <td>
                         <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
                         <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
