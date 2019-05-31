@@ -14,7 +14,7 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control" id="code" value="{{ $bankbook->customer->id }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره دفتر</label>
-                <input type="text" class="form-control" id="code" value="{{ $bankbook->full_code }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -71,8 +71,12 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
+            <div class="form-group col-md-5">
+                <label for="sponsor">ضامن</label>
+                <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor') }}">
+            </div>
+            <div class="col-md-5 text-left">
+                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">ثبت</button>
             </div>
         </div>
         <div class="row my-3">

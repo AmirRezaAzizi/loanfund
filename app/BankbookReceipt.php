@@ -38,4 +38,13 @@ class BankbookReceipt extends Model
             $this->attributes['date'] = null;
         }
     }
+
+    public function setAmountAttribute($value)
+    {
+        if($value) {
+            $this->attributes['amount'] = (int)convertNumbers($value, true);
+        } else {
+            $this->attributes['amount'] = null;
+        }
+    }
 }

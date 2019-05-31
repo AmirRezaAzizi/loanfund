@@ -21,6 +21,8 @@ Route::prefix('customers')->group(/**
  */
     function () {
     Route::get('/', 'CustomerController@index');
+    // inactive customers
+    Route::get('/inactive', 'CustomerController@ia_index');
     Route::post('/', 'CustomerController@store');
     Route::get('/create', 'CustomerController@create');
     Route::get('/{customer}', 'CustomerController@show');

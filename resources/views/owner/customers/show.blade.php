@@ -36,7 +36,7 @@
         <tbody>
             <tr>
                 <th>وضعیت</th>
-                <td class="{{ $customer->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $customer->status == 'active' ? 'فعال' : 'غیرفعال در ' . $customer->closed_date }}</td>
+                <td class="{{ $customer->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $customer->status == 'active' ? 'فعال' : 'غیرفعال از ' . $customer->closed_date }}</td>
             </tr>
             <tr>
                 <th>نام پدر</th>
@@ -99,7 +99,7 @@
             </tr>
             <tr>
                 <th>ردیف</th>
-                <th>کد دفتر</th>
+                <th>شماره دفتر</th>
                 <th>عنوان</th>
                 <th>ماهیانه</th>
                 <th>پس انداز</th>
@@ -156,7 +156,7 @@
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
                         <td>{{ $index + 1 }}</td>
                         <td class="text-left">{{ $loan->id }}</td>
-                        <td class="text-left">{{ sprintf("%04d", $loan->bankbook->customer->code) }}{{ sprintf("%03d", $loan->bankbook->code) }}</td>
+                        <td class="text-left">{{ $loan->bankbook->full_code }}</td>
                         <td class="text-left">{{ number_format($loan->total) }}</td>
                         <td class="text-left">{{ number_format($loan->now_balance()) }}</td>
                         <td class="text-left">{{ number_format($loan->monthly) }}</td>
@@ -173,4 +173,5 @@
             </tbody>
         </table>
     </div>
+    @include('owner/layouts/footer')
 @endsection

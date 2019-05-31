@@ -163,7 +163,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Anetwork\Validation\PersianValidationServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -19,11 +19,11 @@
         </tr>
         <tr>
             <th>وضعیت</th>
-            <td class="{{ $loan->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $loan->status == 'active' ? 'فعال' : 'غیرفعال' }}</td>
+            <td class="{{ $loan->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $loan->status == 'active' ? 'فعال' : 'غیرفعال از ' . $loan->closed_date }}</td>
         </tr>
         <tr>
             <th>نام عضو اصلی</th>
-            <td>{{ $loan->bankbook->customer->fname }} {{ $loan->bankbook->customer->lname }}</td>
+            <td><a href="/customers/{{ $loan->bankbook->customer->id }}">{{ $loan->bankbook->customer->fname }} {{ $loan->bankbook->customer->lname }}</a></td>
         </tr>
         <tr>
             <th>عنوان دفترچه</th>
@@ -32,6 +32,10 @@
         <tr>
             <th>شماره موبایل</th>
             <td>{{ $loan->bankbook->customer->mobile }}</td>
+        </tr>
+        <tr>
+            <th>ضامن</th>
+            <td>{{ $loan->sponsor }}</td>
         </tr>
         <tr>
             <th>مبلغ وام</th>
@@ -61,12 +65,6 @@
             {{--<th>تاریخ سررسید آخرین قسط</th>--}}
             {{--<td>{{ $loan->last_date }}</td>--}}
         {{--</tr>--}}
-        @if($loan->status == 'inactive')
-            <tr>
-                <th>تاریخ غیرفعالسازی</th>
-                <td>{{ $loan->closed_date }}</td>
-            </tr>
-        @endif
 
         </tbody>
     </table>
@@ -80,7 +78,7 @@
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th>کد قبض</th>
+                <th>شماره قبض</th>
                 <th>تاریخ</th>
                 <th>مبلغ پرداختی</th>
                 <th>عملیات</th>
@@ -88,7 +86,7 @@
             </thead>
             <tbody>
 
-            @foreach($loan->loanReceipts as $key => $receipt)
+            @foreach($loanReceipts as $key => $receipt)
                 <tr>
                     <td>{{ $key+1 }}</td>
                     <td class="text-left">{{ $receipt->id }}</td>

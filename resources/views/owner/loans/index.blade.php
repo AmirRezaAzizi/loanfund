@@ -33,7 +33,7 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td class="text-left">{{ $loan->id }}</td>
-                    <td class="text-left">{{ sprintf('%04d', $loan->bankbook->customer->code) }}{{ sprintf('%03d', $loan->bankbook->code) }}</td>
+                    <td class="text-left">{{ $loan->bankbook->full_code }}</td>
                     <td>{{ $loan->bankbook->customer->lname }}</td>
                     <td>{{ $loan->bankbook->customer->fname }}</td>
                     <td class="text-left">{{ number_format($loan->total) }}</td>

@@ -11,7 +11,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control text-left" id="code" readonly value="{{ $customer->id }}">
+                <input type="text" class="form-control text-left" id="code" readonly value="{{ convertNumbers($customer->id) }}">
             </div>
         </div>
         <div class="form-row">
@@ -79,8 +79,17 @@
             <div class="form-group col-md-5">
                 <label for="status">وضعیت</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="active" {{ $customer->status == 'active' ? 'selected' : '' }}>فعال</option>
-                    <option value="inactive" {{ $customer->status == 'inactive' ? 'selected' : '' }}>غیر فعال</option>
+                    <option value="active"
+                            {{ (old("status") == 'active' ? "selected":"") }}
+                            {{ $customer->status == 'active' ? 'selected' : '' }}
+                    >فعال
+                    </option>
+
+                    <option value="inactive"
+                            {{ (old("status") == 'inactive' ? "selected":"") }}
+                            {{ $customer->status == 'inactive' ? 'selected' : '' }}
+                    >غیر فعال
+                    </option>
                 </select>
             </div>
         </div>
@@ -88,7 +97,7 @@
             <div class="form-group col-md-5">
                 <label for="closed_date">تاریخ غیرفعالسازی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ $customer->closed_date }}" pattern="{4}/{2}/{2}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('closed_date')) is-invalid @endif" id="closed_date" name="closed_date" value="{{ old('closed_date', $customer->closed_date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">xxxx/xx/xx</div>
                     </div>

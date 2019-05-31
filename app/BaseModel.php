@@ -8,14 +8,6 @@ use Morilog\Jalali\CalendarUtils;
 class BaseModel extends Model
 {
     // getter
-    public function getCreatedDateAttribute($value)
-    {
-        if ($value)
-            return convertNumbers(jdate($value)->format('Y/m/d'));
-        else
-            return null;
-    }
-
     public function getClosedDateAttribute($value)
     {
         if ($value)
@@ -41,15 +33,6 @@ class BaseModel extends Model
     }
 
     // setter
-    public function setCreatedDateAttribute($value)
-    {
-        if ($value) {
-            $created_date = convertNumbers($value, true);
-            $this->attributes['created_date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', $created_date)->format('Y-m-d');
-        } else {
-            $this->attributes['created_date'] = null;
-        }
-    }
 
     public function setClosedDateAttribute($value)
     {

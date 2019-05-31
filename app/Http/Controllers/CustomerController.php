@@ -17,9 +17,19 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('status', 'active')->get();
+        $title = 'فعال';
 
-        return view('owner.customers.index', compact('customers'));
+        return view('owner.customers.index', compact('customers', 'title'));
+    }
+
+    // inactive
+    public function ia_index()
+    {
+        $customers = Customer::where('status', 'inactive')->get();
+        $title = 'غیرفعال';
+
+        return view('owner.customers.index', compact('customers', 'title'));
     }
 
     /**
@@ -53,7 +63,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('owner.customers.show', compact('customer', 'created_at', 'updated_at'));
+        return view('owner.customers.show', compact('customer'));
     }
 
     /**
@@ -70,7 +80,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CustomerRequest  $request
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */

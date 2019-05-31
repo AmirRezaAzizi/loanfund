@@ -11,11 +11,11 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="code">شماره مشتری</label>
-                <input type="number" class="form-control" id="code" value="{{ $loanReceipt->loan->bankbook->customer->id }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loanReceipt->loan->bankbook->customer->id) }}" readonly>
             </div>
             <div class="form-group col-md-5">
                 <label for="id">شماره وام</label>
-                <input type="number" class="form-control" id="id" value="{{ $loanReceipt->loan->id }}" readonly>
+                <input type="number" class="form-control" id="id" value="{{ convertNumbers($loanReceipt->loan->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -32,7 +32,7 @@
             <div class="form-group col-md-5">
                 <label>مانده فعلی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left" value="{{ number_format($balance) }}" readonly>
+                    ‍‍  <input type="text" class="form-control text-left" value="{{ convertNumbers(number_format($balance)) }}" readonly>
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -43,7 +43,7 @@
             <div class="form-group col-md-5">
                 <label for="amount">مبلغ قبض</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ old('amount', $loanReceipt->amount) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ convertNumbers(old('amount', $loanReceipt->amount)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -66,8 +66,8 @@
         </div>
 
         <div class="form-row">
-            <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ذخیره</button>
+            <div class="col-md-10 text-left">
+                <button type="submit" class="btn btn-primary btn-lg">ذخیره</button>
             </div>
         </div>
         <div class="row my-3">

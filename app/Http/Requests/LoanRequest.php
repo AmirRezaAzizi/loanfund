@@ -24,9 +24,10 @@ class LoanRequest extends FormRequest
     public function rules()
     {
         return [
-            'total' => 'required',
-            'monthly' => 'required',
-            'total_number' => 'required',
+            'total' => 'required|persian_num',
+            'monthly' => 'required|persian_num',
+            'total_number' => 'required|persian_num',
+            'sponsor' => 'sometimes|string',
             'created_date' => 'required',
             'closed_date' => 'nullable',
         ];

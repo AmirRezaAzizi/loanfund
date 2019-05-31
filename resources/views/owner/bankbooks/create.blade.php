@@ -10,7 +10,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control" id="code" value="{{ $customer->id }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -25,14 +25,14 @@
                 <div class="input-group mb-2">
                     ‍<input type="text" class="form-control text-left @if ($errors->has('title')) is-invalid @endif" id="title" name="title" value="{{ old('title') }}">
                 </div>
-                <p>در صورت خالی بودن این فیلد، نام و نام خانوادگی عضو نمایش داده می شود.</p>
+                <p><i class="fas fa-exclamation-triangle" style="color: #ff6666"></i>&nbsp;در صورت خالی بودن این فیلد، نام و نام خانوادگی عضو نمایش داده می شود.</p>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="first_balance">مبلغ افتتاح حساب</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ old('first_balance') }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ old('first_balance') }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>

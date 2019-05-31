@@ -24,6 +24,8 @@ class BankbookController extends Controller
 
         return view('owner.bankbooks.index', compact('bankbooks', 'title'));
     }
+
+    // inactive
     public function ia_index()
     {
         $bankbooks = Bankbook::where('status', 'inactive')->get();
@@ -57,8 +59,8 @@ class BankbookController extends Controller
             $request->request->add(['title' => $customer->fname . ' ' . $customer->lname]);
         }
         $request->validate([
-            'first_balance' => 'required',
-            'monthly' => 'required',
+            'first_balance' => 'required|persian_num',
+            'monthly' => 'required|persian_num',
         ]);
 
         $customer->createBankbook($request);
@@ -73,7 +75,9 @@ class BankbookController extends Controller
      */
     public function show(Bankbook $bankbook)
     {
-        return view('owner.bankbooks.show', compact('bankbook'));
+
+        $bankbookReceipts = $bankbook->bankbookReceipts()->latest('date')->get();
+        return view('owner.bankbooks.show', compact('bankbook', 'bankbookReceipts'));
     }
 
     /**
@@ -102,8 +106,8 @@ class BankbookController extends Controller
             ]);
         }
         $request->validate([
-            'first_balance' => 'required|numeric',
-            'monthly' => 'required|numeric',
+            'first_balance' => 'required|persian_num',
+            'monthly' => 'required|persian_num',
         ]);
 
         $bankbook->update($request->all());

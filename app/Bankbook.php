@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Morilog\Jalali\CalendarUtils;
+
 class Bankbook extends BaseModel
 {
     protected $fillable = ['code','title', 'first_balance', 'monthly', 'status', 'description', 'created_date', 'closed_date'];
@@ -19,7 +21,8 @@ class Bankbook extends BaseModel
     public function now_balance()
     {
         $balance = $this->first_balance;
-        $balance += $this->bankbookReceipts->sum('amount');
+        $balance += $this->bankbookReceipts->where('type', 'deposit')->sum('amount');
+        $balance -= $this->bankbookReceipts->where('type', 'withdraw')->sum('amount');
 
         return $balance;
     }
@@ -48,8 +51,26 @@ class Bankbook extends BaseModel
         }
     }
 
+    public function getCreatedDateAttribute($value)
+    {
+        if ($value)
+            return convertNumbers(jdate($value)->format('Y/m/d'));
+        else
+            return null;
+    }
+
     public function getFullCodeAttribute()
     {
-        return "{$this->customer->id}/{$this->code}";
+        return "{$this->customer->id}-{$this->code}";
+    }
+
+    public function setCreatedDateAttribute($value)
+    {
+        if ($value) {
+            $created_date = convertNumbers($value, true);
+            $this->attributes['created_date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', $created_date)->format('Y-m-d');
+        } else {
+            $this->attributes['created_date'] = null;
+        }
     }
 }

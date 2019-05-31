@@ -90,8 +90,17 @@
             <div class="form-group col-md-5">
                 <label for="status">وضعیت</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="active" {{ $bankbook->status == 'active' ? 'selected' : '' }}>فعال</option>
-                    <option value="inactive" {{ $bankbook->status == 'inactive' ? 'selected' : '' }}>غیر فعال</option>
+                    <option value="active"
+                            {{ old('status') == 'active' ? 'selected' : '' }}
+                            {{ $bankbook->status == 'active' ? 'selected' : '' }}
+                    >فعال
+                    </option>
+
+                    <option value="inactive"
+                            {{ old('status') == 'inactive' ? 'selected' : '' }}
+                            {{ $bankbook->status == 'inactive' ? 'selected' : '' }}
+                    >غیر فعال
+                    </option>
                 </select>
             </div>
         </div>

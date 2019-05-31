@@ -78,8 +78,8 @@
             <div class="form-group col-md-5">
                 <label for="status">وضعیت</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="active" {{ $loan->status == 'active' ? 'selected' : '' }}>فعال</option>
-                    <option value="inactive" {{ $loan->status == 'inactive' ? 'selected' : '' }}>غیر فعال</option>
+                    <option value="active" {{ old('status', $loan->status) == 'active' ? 'selected' : '' }}>فعال</option>
+                    <option value="inactive" {{ old('status', $loan->status) == 'inactive' ? 'selected' : '' }}>غیر فعال</option>
                 </select>
             </div>
             <div class="form-group col-md-5">
@@ -96,8 +96,12 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
+            <div class="form-group col-md-5">
+                <label for="sponsor">ضامن</label>
+                <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor', $loan->sponsor) }}">
+            </div>
+            <div class="col-md-5 text-left">
+                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">ثبت</button>
             </div>
         </div>
         <div class="row my-3">

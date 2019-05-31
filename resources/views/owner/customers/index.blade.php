@@ -1,7 +1,7 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">لیست اعضا اصلی
+    <h1 class="h2">لیست اعضا اصلی {{ $title }}
         <a href="customers/create">
             <button type="button" class="btn btn-outline-primary btn-sm">ایجاد عضو جدید</button>
         </a>
@@ -12,13 +12,13 @@
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
-        <tr>
-            <th>ردیف</th>
-            <th>شماره عضویت</th>
-            <th>نام خانوادگی</th>
-            <th>نام</th>
-            <th>عملیات</th>
-        </tr>
+            <tr>
+                <th>ردیف</th>
+                <th>شماره عضویت</th>
+                <th>نام خانوادگی</th>
+                <th>نام</th>
+                <th>عملیات</th>
+            </tr>
         </thead>
         <tbody>
         @foreach($customers as $index => $customer)

@@ -55,6 +55,12 @@
                     وام های غیرفعال
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customers/inactive">
+                    <i class="fas fa-users"></i>
+                    اعضا غیرفعال
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

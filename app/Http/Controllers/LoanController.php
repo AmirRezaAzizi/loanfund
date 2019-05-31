@@ -61,7 +61,8 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        return view('owner.Loans.show', compact('loan', 'updated_at'));
+        $loanReceipts = $loan->loanReceipts()->latest('date')->get();
+        return view('owner.Loans.show', compact('loan', 'loanReceipts'));
     }
 
     /**

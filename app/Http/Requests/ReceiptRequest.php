@@ -25,8 +25,8 @@ class ReceiptRequest extends FormRequest
     {
         return [
             'date' => 'required',
-            'amount' => 'required|numeric',
-            'balance' => 'nullable|numeric',
+            'amount' => 'required|persian_num',
+            'balance' => 'nullable|persian_num',
         ];
     }
 }

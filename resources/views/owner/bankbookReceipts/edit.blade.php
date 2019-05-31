@@ -15,7 +15,7 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره عضویت</label>
-                <input type="number" class="form-control" id="code" value="{{ $bankbookReceipt->bankbook->customer->id }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($bankbookReceipt->bankbook->customer->id) }}" readonly>
             </div>
 
         </div>
@@ -27,14 +27,14 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="code">شماره دفترچه</label>
-                <input type="text" class="form-control" id="code" value="{{ $bankbookReceipt->bankbook->full_code }}" readonly>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($bankbookReceipt->bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5" style="margin-top: 12px;">
                 <label>موجودی</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left" value="{{ $balance }}" readonly>
+                    ‍‍  <input type="text" class="form-control text-left" value="{{ convertNumbers(number_format($balance)) }}" readonly>
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -43,14 +43,18 @@
             <div class="form-group col-md-5">
                 <div class="radio-inline" style="padding: .375rem 1.40rem;">
                     <label for="deposit">
-                        <input type="radio" id="deposit" name="type" value="deposit" checked> واریز
+                        <input type="radio" id="deposit" name="type" value="deposit"
+                                {{ old('type', $bankbookReceipt->type) == 'deposit' ? 'checked' : '' }}
+                        > واریز
                     </label>
                     <label for="withdraw">
-                        <input type="radio" id="withdraw" name="type" value="withdraw"> برداشت
+                        <input type="radio" id="withdraw" name="type" value="withdraw"
+                                {{ old('type', $bankbookReceipt->type) == 'withdraw' ? 'checked' : '' }}
+                        > برداشت
                     </label>
                 </div>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="number" class="form-control text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ old('amount', $bankbookReceipt->amount) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ convertNumbers(old('amount', $bankbookReceipt->amount)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
@@ -70,11 +74,8 @@
                     تاریخ باید اعداد انگلیسی و بصورت تاریخ شمسی باشد مانند: ۱۳۹۷/۰۸/۱۸
                 </div>
             </div>
-            <div class="col-md-5">
-                <label> </label>
-                <div class="input-group">
-                    <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
-                </div>
+            <div class="col-md-5 text-left" style="margin-top: 24px">
+                <button type="submit" class="btn btn-primary btn-lg">ثبت</button>
             </div>
         </div>
         <div class="row my-3">

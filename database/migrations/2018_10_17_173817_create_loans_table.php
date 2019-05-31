@@ -21,6 +21,7 @@ class CreateLoansTable extends Migration
             $table->integer('monthly');
             $table->integer('debt')->nullable();
             $table->integer('total_number');
+            $table->string('sponsor')->nullable();
             $table->date('created_date');
             $table->date('closed_date')->nullable();
             $table->timestamps();
