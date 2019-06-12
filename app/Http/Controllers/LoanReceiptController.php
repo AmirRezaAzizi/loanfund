@@ -29,7 +29,7 @@ class LoanReceiptController extends Controller
     {
         $balance = 0;
 
-        $date = convertNumbers(jdate()->format('Y/m/') . '29');
+        $date = convertNumbers(jdate()->format('Y/m/') . '30');
 
         $balance += $loan->now_balance();
 

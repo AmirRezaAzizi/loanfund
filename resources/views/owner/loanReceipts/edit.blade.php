@@ -5,27 +5,33 @@
 @endsection
 
 @section('content')
+    <div class="row my-3">
+        <div class="col-10">
+            @include('owner/layouts/error')
+        </div>
+    </div>
     <form method="POST" action="/loanReceipts/{{ $loanReceipt->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="code">شماره مشتری</label>
-                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loanReceipt->loan->bankbook->customer->id) }}" readonly>
+                <label for="fname">عضو اصلی</label>
+                <input type="text" class="form-control" id="fname" value="{{ $loanReceipt->loan->bankbook->customer->fname }} {{ $loanReceipt->loan->bankbook->customer->lname }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="id">شماره وام</label>
-                <input type="number" class="form-control" id="id" value="{{ convertNumbers($loanReceipt->loan->id) }}" readonly>
+                <label for="code">شماره عضویت</label>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loanReceipt->loan->bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
+
             <div class="form-group col-md-5">
-                <label for="fname">نام</label>
-                <input type="text" class="form-control" id="fname" value="{{ $loanReceipt->loan->bankbook->customer->fname }}" readonly>
+                <label for="title">عنوان دفترچه</label>
+                <input type="text" class="form-control" id="title" value="{{ $loanReceipt->loan->bankbook->title }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="lname">نام خانوادگی</label>
-                <input type="text" class="form-control" id="lname" value="{{ $loanReceipt->loan->bankbook->customer->lname }}" readonly>
+                <label for="code">شماره دفترچه</label>
+                <input type="text" class="form-control" id="code" value="{{ convertNumbers($loanReceipt->loan->bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -38,6 +44,10 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group col-md-5">
+                <label for="id">شماره وام</label>
+                <input type="text" class="form-control" id="id" value="{{ convertNumbers($loanReceipt->loan->id) }}" readonly>
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
@@ -49,8 +59,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
@@ -68,11 +76,6 @@
         <div class="form-row">
             <div class="col-md-10 text-left">
                 <button type="submit" class="btn btn-primary btn-lg">ذخیره</button>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-10">
-                @include('owner/layouts/error')
             </div>
         </div>
     </form>

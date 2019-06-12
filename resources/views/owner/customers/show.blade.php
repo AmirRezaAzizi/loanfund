@@ -21,7 +21,7 @@
                 <td>{{ $customer->id }}</td>
             </tr>
             <tr>
-                <th>نام</th>
+                <th>نام و نام خانوادگی</th>
                 <td>{{ $customer->fname }} {{ $customer->lname }}</td>
             </tr>
             @if($customer->description)
@@ -100,7 +100,7 @@
             <tr>
                 <th>ردیف</th>
                 <th>شماره دفتر</th>
-                <th>عنوان</th>
+                <th>نام</th>
                 <th>ماهیانه</th>
                 <th>پس انداز</th>
                 <th>وام</th>

@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    <div class="row my-3">
+        <div class="col-10">
+            @include('owner/layouts/error')
+        </div>
+    </div>
     <form method="POST" action="/customers" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
@@ -92,11 +97,6 @@
         <div class="form-row">
             <div class="col-md-10">
                 <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-10">
-                @include('owner/layouts/error')
             </div>
         </div>
     </form>

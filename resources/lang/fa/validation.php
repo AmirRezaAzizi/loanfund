@@ -132,6 +132,7 @@ return [
         "content" => "محتوا",
         "description" => "توضیحات",
         "excerpt" => "گلچین کردن",
+        "status" => "وضعیت",
         "date" => "تاریخ",
         "time" => "زمان",
         "available" => "موجود",
@@ -142,5 +143,12 @@ return [
         "closed_date" => 'تاریخ غیرفعالسازی',
         "created_date" => 'تاریخ ثبت',
     ),
+
+    'values' => [
+        'status' => [
+            "active" => "فعال",
+            "inactive" => "غیرفعال",
+        ],
+    ],
 
 ];

@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <th>وضعیت</th>
-            <td class="{{ $loan->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $loan->status == 'active' ? 'فعال' : 'غیرفعال از ' . $loan->closed_date }}</td>
+            <td class="{{ $loan->status == 'inactive' ? 'inactive-bg' : '' }}">{{ $loan->status == 'active' ? 'فعال' : 'غیرفعال (تسویه شده) از ' . $loan->closed_date }}</td>
         </tr>
         <tr>
             <th>نام عضو اصلی</th>

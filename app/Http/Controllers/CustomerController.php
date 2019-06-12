@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Http\Requests\CustomerRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Morilog\Jalali\Jalalian;
+use App\Rules\CustomerDisable;
+
 
 class CustomerController extends Controller
 {
@@ -86,11 +85,11 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        if ($request->status == 'inactive') {
+
             $request->validate([
-                'closed_date' => 'required'
+                'status' => new CustomerDisable($customer),
+                'closed_date' => 'required_if:status,inactive'
             ]);
-        }
 
         $customer->update($request->all());
         return redirect('/customers/'.$customer->id);

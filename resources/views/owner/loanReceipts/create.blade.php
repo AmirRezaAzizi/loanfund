@@ -1,10 +1,15 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">اطلاعات قسط دریافتی</h1>
+    <h1 class="h2">اطلاعات قسط دریافتی وام</h1>
 @endsection
 
 @section('content')
+    <div class="row my-3">
+        <div class="col-10">
+            @include('owner/layouts/error')
+        </div>
+    </div>
     <form method="POST" action="/loans/{{ $loan->id }}/receipts" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
@@ -30,7 +35,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label>مانده فعلی</label>
+                <label>مانده بدهی وام</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left" value="{{ convertNumbers(number_format($balance)) }}" readonly>
                     <div class="input-group-prepend">
@@ -38,19 +43,21 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group col-md-5">
+                <label for="id">شماره وام</label>
+                <input type="text" class="form-control" id="id" value="{{ convertNumbers($loan->id) }}" readonly>
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="amount">مبلغ قبض</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control first_focus text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ old('amount') }}">
+                    ‍‍  <input type="text" class="form-control first_focus text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ convertNumbers(old('amount', $loan->monthly)) }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">تومان</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="date">تاریخ ثبت</label>
                 <div class="input-group mb-2">
@@ -68,11 +75,6 @@
         <div class="form-row">
             <div class="col-md-10 text-left">
                 <button type="submit" class="btn btn-primary btn-lg">ثبت</button>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-10">
-                @include('owner/layouts/error')
             </div>
         </div>
     </form>

@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    <div class="row my-3">
+        <div class="col-10">
+            @include('owner/layouts/error')
+        </div>
+    </div>
     <form method="POST" action="/bankbookReceipts/{{ $bankbookReceipt->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
@@ -76,11 +81,6 @@
             </div>
             <div class="col-md-5 text-left" style="margin-top: 24px">
                 <button type="submit" class="btn btn-primary btn-lg">ثبت</button>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-10">
-                @include('owner/layouts/error')
             </div>
         </div>
     </form>

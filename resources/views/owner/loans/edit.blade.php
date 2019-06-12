@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    <div class="row my-3">
+        <div class="col-10">
+            @include('owner/layouts/error')
+        </div>
+    </div>
     <form method="POST" action="/loans/{{ $loan->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
@@ -79,7 +84,7 @@
                 <label for="status">وضعیت</label>
                 <select name="status" id="status" class="form-control">
                     <option value="active" {{ old('status', $loan->status) == 'active' ? 'selected' : '' }}>فعال</option>
-                    <option value="inactive" {{ old('status', $loan->status) == 'inactive' ? 'selected' : '' }}>غیر فعال</option>
+                    <option value="inactive" {{ old('status', $loan->status) == 'inactive' ? 'selected' : '' }}>غیر فعال (تسویه شده)</option>
                 </select>
             </div>
             <div class="form-group col-md-5">
@@ -102,11 +107,6 @@
             </div>
             <div class="col-md-5 text-left">
                 <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">ثبت</button>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-10">
-                @include('owner/layouts/error')
             </div>
         </div>
     </form>
