@@ -2,7 +2,7 @@
 
 @section('page-title')
     <h1 class="h2">دفترچه پس انداز
-        <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+        <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
     </h1>
 @endsection
 
@@ -11,60 +11,70 @@
         <tbody>
 
         <tr>
-            <th>شماره دفتر</th>
+            <th>{{ trans('global.bankbook.full_code') }}</th>
             <td>{{ $bankbook->full_code }}</td>
         </tr>
         <tr>
-            <th>وضعیت</th>
+            <th>{{ trans('global.bankbook.status') }}</th>
             <td class="{{ $bankbook->status == 'inactive' ? 'inactive-bg' : '' }}">
                 {{ $bankbook->status == 'active' ? 'فعال' :  'غیرفعال شده در ' . $bankbook->closed_date }}
             </td>
 
         </tr>
         <tr>
-            <th>عضو اصلی</th>
+            <th>{{ trans('global.customer.customerFullName') }}</th>
             <td><a href="/customers/{{ $bankbook->customer->id }}">{{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }}</a></td>
         </tr>
         <tr>
-            <th>عنوان دفترچه</th>
+            <th>{{ trans('global.bankbook.title') }}</th>
             <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
         </tr>
         <tr>
-            <th>شماره موبایل</th>
+            <th>{{ trans('global.customer.mobile') }}</th>
             <td>{{ $bankbook->customer->mobile }}</td>
         </tr>
+        {{--<tr>--}}
+            {{--<th>{{ trans('global.receipt.amount') }} افتتاح حساب</th>--}}
+            {{--<td>{{ number_format($bankbook->first_balance) }}</td>--}}
+        {{--</tr>--}}
         <tr>
-            <th>مبلغ افتتاح حساب</th>
-            <td>{{ number_format($bankbook->first_balance) }}</td>
-        </tr>
-        <tr>
-            <th>مبلغ پس انداز ماهیانه</th>
+            <th>{{ trans('global.bankbook.monthly') }}</th>
             <td>{{ number_format($bankbook->monthly) }}</td>
         </tr>
         <tr>
-            <th>مانده پس انداز</th>
+            <th>{{ trans('global.bankbook.nowBalance') }}</th>
             <td>{{ number_format($bankbook->now_balance()) }}</td>
         </tr>
         <tr>
             <th>مانده وام</th>
-            <td>{{ number_format(0) }}</td>
+            <td>@if($bankbook->activeLoan())
+                    {{ number_format($bankbook->activeLoan()->now_balance())  }}
+                @endif
+            </td>
         </tr>
         <tr>
-            <th>مبلغ قسط</th>
-            <td>{{  number_format(0) }}</td>
+            <th>{{ trans('global.bankbook.monthly') }}</th>
+            <td>@if($bankbook->activeLoan())
+                    {{  number_format($bankbook->activeLoan()->monthly) }}
+                @endif
+            </td>
         </tr>
         <tr>
-            <th>تاریخ ثبت</th>
+            <th>{{ trans('global.global.description') }}</th>
+            <td>{{ $bankbook->description }}</td>
+        </tr>
+        <tr>
+            <th>{{ trans('global.global.createDate') }}</th>
             <td>{{ $bankbook->created_date }}</td>
         </tr>
         <tr>
-            <th>تاریخ آخرین ویرایش</th>
+            <th>{{ trans('global.global.updateDate') }}</th>
             <td>{{ $bankbook->updated_at }}</td>
         </tr>
         </tbody>
     </table>
     <h2>
-        <a data-toggle="collapse" href="#collapseDepositsTable" role="button" aria-expanded="false" aria-controls="collapseDepositsTable" style="color: #000">واریز و برداشت ها</a>
+        <a data-toggle="collapse" href="#collapseDepositsTable" role="button" aria-expanded="false" aria-controls="collapseDepositsTable" style="color: #000">{{ trans('global.global.deposit') }} و {{ trans('global.global.withdraw') }} ها</a>
         <a href="/bankbooks/{{ $bankbook->id }}/receipts/create">
             <button type="button" class="btn btn-outline-primary btn-sm">ایجاد قبض جدید</button>
         </a>
@@ -73,12 +83,13 @@
         <table class="table table-striped table-bordered table-sm collapse show" id="collapseDepositsTable">
             <thead>
             <tr>
-                <th>ردیف</th>
-                <th>شماره قبض</th>
-                <th>تاریخ</th>
-                <th>واریز</th>
-                <th>برداشت</th>
-                <th>عملیات</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.receipt.id') }}</th>
+                <th>{{ trans('global.receipt.date') }}</th>
+                <th>{{ trans('global.global.deposit') }}</th>
+                <th>{{ trans('global.global.withdraw') }}</th>
+                <th>{{ trans('global.global.description') }}</th>
+                <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -98,8 +109,13 @@
                             {{ number_format($receipt->amount) }}
                         @endif
                     </td>
+                    <td>{{ $receipt->description }}</td>
                     <td>
-                        <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                        @if($receipt->confirmed)
+                            <button class="btn btn-outline-danger btn-sm">‌{{ trans('global.global.confirmed') }}</button>
+                        @else
+                            <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -120,16 +136,16 @@
                 <th colspan="1" style="border: 0"></th>
             </tr>
             <tr>
-                <th>ردیف</th>
-                <th>شماره وام</th>
-                <th>شماره دفترچه</th>
-                <th>مبلغ وام</th>
-                <th>مانده بدهی</th>
-                <th>مبلغ</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.loan.id') }}</th>
+                <th>{{ trans('global.bankbook.full_code') }}</th>
+                <th>{{ trans('global.loan.total') }}</th>
+                <th>{{ trans('global.loan.nowBalance') }}</th>
+                <th>{{ trans('global.loan.monthly') }}</th>
                 <th>کل</th>
                 <th>پرداختی</th>
                 <th>مانده</th>
-                <th>عملیات</th>
+                <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -142,11 +158,11 @@
                         <td class="text-left">{{ number_format($loan->now_balance()) }}</td>
                         <td class="text-left">{{ number_format($loan->monthly) }}</td>
                         <td class="text-left">{{ number_format($loan->total_number) }}</td>
-                        <td class="text-left">-</td>
-                        <td class="text-left">-</td>
+                        <td class="text-left">{{ count($loan->loanReceipts) }}</td>
+                        <td class="text-left">{{ $loan->total_number - count($loan->loanReceipts)}}</td>
                         <td>
-                            <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
-                            <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                            <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
+                            <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
                         </td>
                     </tr>
                 @endforeach

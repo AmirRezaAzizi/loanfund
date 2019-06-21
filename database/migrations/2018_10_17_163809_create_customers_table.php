@@ -28,6 +28,7 @@ class CreateCustomersTable extends Migration
             $table->string('post')->nullable();
             $table->string('reference')->nullable();
             $table->string('sponsor')->nullable();
+            $table->text('description')->nullable();
             $table->date('closed_date')->nullable();
             $table->timestamps();
         });

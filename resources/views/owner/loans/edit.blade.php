@@ -1,50 +1,49 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">ویرایش وام شماره {{ $loan->id }}</h1>
+    <h1 class="h2">{{ trans('global.global.edit') }} وام شماره {{ $loan->id }}
+        @if($loan->confirmed)
+            <button class="btn btn-outline-danger btn-sm">‌{{ trans('global.global.confirmed') }}</button>
+        @endif
+    </h1>
 @endsection
 
 @section('content')
-    <div class="row my-3">
-        <div class="col-10">
-            @include('owner/layouts/error')
-        </div>
-    </div>
     <form method="POST" action="/loans/{{ $loan->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">عضو اصلی</label>
+                <label for="fname">{{ trans('global.customer.customerFullName') }}</label>
                 <input type="text" class="form-control" id="fname" value="{{ $loan->bankbook->customer->fname }} {{ $loan->bankbook->customer->lname }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="code">شماره عضویت</label>
+                <label for="code">{{ trans('global.customer.id') }}</label>
                 <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="title">عنوان دفترچه</label>
+                <label for="title">{{ trans('global.bankbook.title') }}</label>
                 <input type="text" class="form-control" id="title" value="{{ $loan->bankbook->title }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="code">شماره دفتر</label>
+                <label for="code">{{ trans('global.bankbook.full_code') }}</label>
                 <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="total">مبلغ وام</label>
+                <label for="total">{{ trans('global.loan.total') }}</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('total')) is-invalid @endif" id="total" name="total" required value="{{ convertNumbers(old('total', $loan->total)) }}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('total')) is-invalid @endif" id="total" name="total" value="{{ convertNumbers(old('total', $loan->total)) }}" @if($loan->confirmed) readonly @else required @endif>
                     <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
+                        <div class="input-group-text">{{ trans('global.global.currencyName') }}</div>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="total_number">تعداد کل اقساط</label>
+                <label for="total_number">{{ trans('global.loan.total_number') }}</label>
                 <div class="input-group mb-2">
                     ‍‍<input type="text" class="form-control text-left @if ($errors->has('total_number')) is-invalid @endif" id="total_number" name="total_number" required value="{{ convertNumbers(old('total_number', $loan->total_number)) }}">
                     <div class="input-group-prepend">
@@ -55,21 +54,21 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="monthly">مبلغ ماهیانه</label>
+                <label for="monthly">{{ trans('global.loan.monthly') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ convertNumbers(old('monthly', $loan->monthly)) }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
+                        <div class="input-group-text">{{ trans('global.global.currencyName') }}</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
+                    {{ trans('global.receipt.amount') }} باید فقط شامل اعداد انگلیسی باشد.
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="created_date">تاریخ ثبت</label>
+                <label for="created_date">{{ trans('global.global.createDate') }}</label>
                 <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $loan->created_date) }}" pattern="{4}/{2}/{2}">
+                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" value="{{ old('created_date', $loan->created_date) }}" pattern="{4}/{2}/{2}"  @if($loan->confirmed) readonly @else required @endif>
                     <div class="input-group-prepend">
                         <div class="input-group-text">xxxx/xx/xx</div>
                     </div>
@@ -81,7 +80,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="status">وضعیت</label>
+                <label for="status">{{ trans('global.loan.status') }}</label>
                 <select name="status" id="status" class="form-control">
                     <option value="active" {{ old('status', $loan->status) == 'active' ? 'selected' : '' }}>فعال</option>
                     <option value="inactive" {{ old('status', $loan->status) == 'inactive' ? 'selected' : '' }}>غیر فعال (تسویه شده)</option>
@@ -102,11 +101,17 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="sponsor">ضامن</label>
+                <label for="sponsor">{{ trans('global.loan.sponsor') }}</label>
                 <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor', $loan->sponsor) }}">
             </div>
             <div class="col-md-5 text-left">
-                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">ثبت</button>
+                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">{{ trans('global.global.submit') }}</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="description">{{ trans('global.global.description') }}</label>
+                <textarea class="form-control" id="description" name="description">{{ old('description', $loan->description) }}</textarea>
             </div>
         </div>
     </form>

@@ -11,18 +11,9 @@ use Morilog\Jalali\CalendarUtils;
 class BankbookReceiptController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
+     * @param Bankbook $bankbook
      * @return \Illuminate\Http\Response
      */
     public function create(Bankbook $bankbook)
@@ -39,7 +30,8 @@ class BankbookReceiptController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ReceiptRequest|Request $request
+     * @param Bankbook $bankbook
      * @return \Illuminate\Http\Response
      */
     public function store(ReceiptRequest $request, Bankbook $bankbook)
@@ -49,16 +41,6 @@ class BankbookReceiptController extends Controller
         return redirect('/bankbooks/'.$receipt->bankbook->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\BankbookReceipt  $bankbookReceipt
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BankbookReceipt $bankbookReceipt)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -68,6 +50,8 @@ class BankbookReceiptController extends Controller
      */
     public function edit(BankbookReceipt $bankbookReceipt)
     {
+        if ($bankbookReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
         $balance = $bankbookReceipt->bankbook->now_balance();
         return view('owner.bankbookReceipts.edit', compact('bankbookReceipt', 'balance'));
     }
@@ -81,6 +65,8 @@ class BankbookReceiptController extends Controller
      */
     public function update(ReceiptRequest $request, BankbookReceipt $bankbookReceipt)
     {
+        if ($bankbookReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
         $bankbookReceipt->update($request->all());
         return redirect('/bankbooks/'.$bankbookReceipt->bankbook->id);
     }
@@ -93,6 +79,7 @@ class BankbookReceiptController extends Controller
      */
     public function destroy(BankbookReceipt $bankbookReceipt)
     {
-        //
+        if ($bankbookReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
     }
 }

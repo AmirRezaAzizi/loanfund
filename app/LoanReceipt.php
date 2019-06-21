@@ -11,7 +11,8 @@ class LoanReceipt extends Model
         'balance',
         'amount',
         'date',
-        'type'
+        'type',
+        'description',
     ];
 
     public function loan()

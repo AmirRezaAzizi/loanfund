@@ -5,65 +5,60 @@
 @endsection
 
 @section('content')
-    <div class="row my-3">
-        <div class="col-10">
-            @include('owner/layouts/error')
-        </div>
-    </div>
     <form method="POST" action="/customers/{{ $customer->id }}/bankbooks" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="code">شماره عضویت</label>
+                <label for="code">{{ trans('global.customer.id') }}</label>
                 <input type="text" class="form-control" id="code" value="{{ convertNumbers($customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">عضو اصلی</label>
+                <label for="fname">{{ trans('global.customer.customerFullName') }}</label>
                 <input type="text" class="form-control" id="fname" value="{{ $customer->fname }} {{ $customer->lname }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="title">عنوان دفترچه</label>
+                <label for="title">{{ trans('global.bankbook.title') }}</label>
                 <div class="input-group mb-2">
                     ‍<input type="text" class="form-control text-left @if ($errors->has('title')) is-invalid @endif" id="title" name="title" value="{{ old('title') }}">
                 </div>
-                <p><i class="fas fa-exclamation-triangle" style="color: #ff6666"></i>&nbsp;در صورت خالی بودن این فیلد، نام و نام خانوادگی عضو نمایش داده می شود.</p>
+                <p><i class="fas fa-exclamation-triangle" style="color: #ff6666"></i>&nbsp;در صورت خالی بودن این فیلد، {{ trans('global.customer.fname') }} و {{ trans('global.customer.lname') }} عضو نمایش داده می شود.</p>
             </div>
         </div>
+        {{--<div class="form-row">--}}
+            {{--<div class="form-group col-md-5">--}}
+                {{--<label for="first_balance">{{ trans('global.receipt.amount') }} افتتاح حساب</label>--}}
+                {{--<div class="input-group mb-2">--}}
+                    {{--‍‍  <input type="text" class="form-control text-left @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ old('first_balance') }}">--}}
+                    {{--<div class="input-group-prepend">--}}
+                        {{--<div class="input-group-text">{{ trans('global.global.currencyName') }}</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="invalid-feedback">--}}
+                    {{--{{ trans('global.receipt.amount') }} باید فقط شامل اعداد انگلیسی باشد.--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="first_balance">مبلغ افتتاح حساب</label>
-                <div class="input-group mb-2">
-                    ‍‍  <input type="text" class="form-control text-left @if ($errors->has('first_balance')) is-invalid @endif" id="first_balance" name="first_balance" required value="{{ old('first_balance') }}">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
-                    </div>
-                </div>
-                <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="monthly">مبلغ ماهیانه</label>
+                <label for="monthly">{{ trans('global.bankbook.monthly') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left @if ($errors->has('monthly')) is-invalid @endif" id="monthly" name="monthly" required value="{{ old('monthly') }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
+                        <div class="input-group-text">{{ trans('global.global.currencyName') }}</div>
                     </div>
                 </div>
                 <div class="invalid-feedback">
-                    مبلغ باید فقط شامل اعداد انگلیسی باشد.
+                    {{ trans('global.bankbook.amount') }} باید فقط شامل اعداد انگلیسی باشد.
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="created_date">تاریخ ثبت</label>
+                <label for="created_date">{{ trans('global.global.createDate') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left @if ($errors->has('created_date')) is-invalid @endif" id="created_date" name="created_date" required value="{{ old('created_date', $date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
@@ -76,8 +71,14 @@
             </div>
         </div>
         <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="description">{{ trans('global.global.description') }}</label>
+                <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+            </div>
+        </div>
+        <div class="form-row">
             <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
+                <button type="submit" class="btn float-left btn-primary btn-lg">{{ trans('global.global.submit') }}</button>
             </div>
         </div>
     </form>

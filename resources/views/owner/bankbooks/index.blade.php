@@ -14,14 +14,14 @@
                 <th colspan="2" style="border: 0"></th>
             </tr>
             <tr>
-                <th>ردیف</th>
-                <th>شماره دفتر</th>
-                <th>نام</th>
-                <th>مبلغ پس انداز ماهیانه</th>
-                <th>پس انداز</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.bankbook.full_code') }}</th>
+                <th>{{ trans('global.customer.fname') }}</th>
+                <th>{{ trans('global.bankbook.monthly') }}</th>
+                <th>{{ trans('global.bankbook.nowBalance') }}</th>
                 <th>وام</th>
-                <th>مبلغ قسط</th>
-                <th>عملیات</th>
+                <th>{{ trans('global.loan.monthly') }}</th>
+                <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -31,12 +31,12 @@
                     <td class="text-left">{{ $bankbook->full_code }}</td>
                     <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
                     <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
-                    <td class="text-left">{{ number_format($bankbook->first_balance) }}</td>
+                    <td class="text-left">{{ number_format($bankbook->now_balance()) }}</td>
                     <td class="text-left">-</td>
                     <td class="text-left">-</td>
                     <td>
-                        <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
-                        <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                        <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
+                        <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
                     </td>
                 </tr>
             @endforeach

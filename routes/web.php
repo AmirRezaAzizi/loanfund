@@ -84,6 +84,6 @@ Route::get('/ledger', function () {
     return view('owner/ledger');
 });
 
-Route::get('/days', function () {
-    return view('owner/days');
-});
+Route::get('/journal', 'JournalController@index')->name('journal');
+
+Route::get('/confirmAllDocuments', 'ConfirmController@confirm')->name('confirmAll');

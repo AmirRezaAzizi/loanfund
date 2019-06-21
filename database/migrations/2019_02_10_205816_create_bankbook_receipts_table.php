@@ -18,7 +18,9 @@ class CreateBankbookReceiptsTable extends Migration
             $table->integer('bankbook_id');
             $table->date('date');
             $table->integer('amount');
-            $table->integer('balance')->nullable();
+            $table->enum('type', ['deposit', 'withdraw']);
+            $table->boolean('confirmed')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

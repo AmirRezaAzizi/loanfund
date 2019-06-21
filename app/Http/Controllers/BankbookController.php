@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Bankbook;
 use App\Customer;
-use App\Http\Requests\BankbookRequest;
+use App\Rules\DisableBankbook;
+use App\Traits\Statusable;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Morilog\Jalali\CalendarUtils;
-use Morilog\Jalali\Jalalian;
+
 
 class BankbookController extends Controller
 {
+    use Statusable;
     /**
      * Display a listing of the resource.
      *
@@ -41,6 +41,10 @@ class BankbookController extends Controller
      */
     public function create(Customer $customer)
     {
+        // Check if customer is disable show message and redirect back
+        if (!$this->isActive($customer))
+            return back()->with('error', trans('global.errors.customerIsInactive'));
+
         $date = convertNumbers(jdate()->format('Y/m/d'));
         return view('owner.bankbooks.create', compact('customer', 'date'));
     }
@@ -59,7 +63,7 @@ class BankbookController extends Controller
             $request->request->add(['title' => $customer->fname . ' ' . $customer->lname]);
         }
         $request->validate([
-            'first_balance' => 'required|persian_num',
+//            'first_balance' => 'required|persian_num',
             'monthly' => 'required|persian_num',
         ]);
 
@@ -100,13 +104,10 @@ class BankbookController extends Controller
      */
     public function update(Request $request, Bankbook $bankbook)
     {
-        if ($request->status == 'inactive') {
-            $request->validate([
-               'closed_date' => 'required'
-            ]);
-        }
         $request->validate([
-            'first_balance' => 'required|persian_num',
+            'status' => new DisableBankbook($bankbook),
+            'closed_date' => 'required_if:status,inactive',
+//            'first_balance' => 'required|persian_num',
             'monthly' => 'required|persian_num',
         ]);
 

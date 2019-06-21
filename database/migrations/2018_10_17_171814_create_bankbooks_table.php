@@ -19,9 +19,9 @@ class CreateBankbooksTable extends Migration
             $table->integer('code')->length(3)->unsigned();
             $table->string('title')->nullable();
             $table->string('status', 10)->default('active');
-            $table->integer('first_balance');
             $table->integer('monthly');
             $table->integer('balance')->nullable();
+            $table->text('description')->nullable();
             $table->date('created_date');
             $table->date('closed_date')->nullable();
             $table->timestamps();

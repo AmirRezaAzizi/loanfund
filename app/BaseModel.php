@@ -71,12 +71,12 @@ class BaseModel extends Model
         }
     }
 
-    public function setFirstBalanceAttribute($value)
-    {
-        if($value) {
-            $this->attributes['first_balance'] = (int)convertNumbers($value, true);
-        } else {
-            $this->attributes['first_balance'] = null;
-        }
-    }
+//    public function setFirstBalanceAttribute($value)
+//    {
+//        if($value) {
+//            $this->attributes['first_balance'] = (int)convertNumbers($value, true);
+//        } else {
+//            $this->attributes['first_balance'] = null;
+//        }
+//    }
 }

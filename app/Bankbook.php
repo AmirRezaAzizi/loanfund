@@ -6,7 +6,7 @@ use Morilog\Jalali\CalendarUtils;
 
 class Bankbook extends BaseModel
 {
-    protected $fillable = ['code','title', 'first_balance', 'monthly', 'status', 'description', 'created_date', 'closed_date'];
+    protected $fillable = ['code','title', /*'first_balance', */'monthly', 'status', 'description', 'created_date', 'closed_date'];
 
     public function customer()
     {
@@ -18,10 +18,15 @@ class Bankbook extends BaseModel
         return $this->hasMany(Loan::class);
     }
 
+    public function activeLoan()
+    {
+        return $this->loans()->where('status', 'active')->latest()->first();
+    }
+
     public function now_balance()
     {
-        $balance = $this->first_balance;
-        $balance += $this->bankbookReceipts->where('type', 'deposit')->sum('amount');
+//        $balance = $this->first_balance;
+        $balance = $this->bankbookReceipts->where('type', 'deposit')->sum('amount');
         $balance -= $this->bankbookReceipts->where('type', 'withdraw')->sum('amount');
 
         return $balance;
@@ -62,6 +67,11 @@ class Bankbook extends BaseModel
     public function getFullCodeAttribute()
     {
         return "{$this->customer->id}-{$this->code}";
+    }
+
+    public function getActiveLoansCountAttribute()
+    {
+        return $this->loans()->where('status', 'active')->count();
     }
 
     public function setCreatedDateAttribute($value)

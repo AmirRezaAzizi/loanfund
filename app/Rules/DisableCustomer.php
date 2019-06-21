@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Customer;
 use Illuminate\Contracts\Validation\Rule;
 
-class CustomerDisable implements Rule
+class DisableCustomer implements Rule
 {
     protected $customer;
     /**
@@ -28,14 +28,12 @@ class CustomerDisable implements Rule
     public function passes($attribute, $value)
     {
         if ($value == 'inactive') {
-            // Get customer loans
-            $bankbooks = $this->customer->bankbooks()->with('loans')->get();
+            // Get customer bankbooks
+            $bankbooks = $this->customer->bankbooks()->get();
 
             foreach ($bankbooks as $bankbook) {
-                foreach ($bankbook->loans as $loan) {
-                    if ($loan->status === 'active')
-                        return false;
-                }
+                if ($bankbook->status === 'active')
+                    return false;
             }
         }
 
@@ -49,6 +47,6 @@ class CustomerDisable implements Rule
      */
     public function message()
     {
-        return 'مشتری وام فعال دارد.جهت غیرفعال سازی لطفا ابتدا وام ها را بررسی و غیرفعال فرمایید.';
+        return 'این عضو دفترچه فعال دارد.جهت غیرفعال سازی لطفا ابتدا دفاتر را بررسی و غیرفعال فرمایید.';
     }
 }

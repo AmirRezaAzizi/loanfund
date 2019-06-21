@@ -18,7 +18,8 @@ class CreateLoanReceiptsTable extends Migration
             $table->integer('loan_id');
             $table->date('date');
             $table->integer('amount');
-            $table->integer('balance')->nullable();
+            $table->boolean('confirmed')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

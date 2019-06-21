@@ -14,18 +14,18 @@
                   <th colspan="1" style="border: 0"></th>
               </tr>
             <tr>
-                <th>ردیف</th>
-                <th>شماره وام</th>
-                <th>شماره دفترچه</th>
-                <th>نام خانوادگی</th>
-                <th>نام</th>
-                <th>مبلغ وام</th>
-                <th>مانده بدهی</th>
-                <th>مبلغ</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.loan.id') }}</th>
+                <th>{{ trans('global.bankbook.full_code') }}</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.customer.fname') }}</th>
+                <th>{{ trans('global.loan.total') }}</th>
+                <th>{{ trans('global.loan.nowBalance') }}</th>
+                <th>{{ trans('global.loan.monthly') }}</th>
                 <th>کل</th>
                 <th>پرداختی</th>
                 <th>مانده</th>
-                <th>عملیات</th>
+                <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -37,14 +37,14 @@
                     <td>{{ $loan->bankbook->customer->lname }}</td>
                     <td>{{ $loan->bankbook->customer->fname }}</td>
                     <td class="text-left">{{ number_format($loan->total) }}</td>
-                    <td class="text-left">{{ number_format($loan->debit) }}</td>
+                    <td class="text-left">{{ number_format($loan->now_balance()) }}</td>
                     <td class="text-left">{{ number_format($loan->monthly) }}</td>
                     <td class="text-left">{{ $loan->total_number }}</td>
-                    <td class="text-left">-</td>
-                    <td class="text-left">-</td>
+                    <td class="text-left">{{ count($loan->loanReceipts) }}</td>
+                    <td class="text-left">{{ $loan->total_number - count($loan->loanReceipts)}}</td>
                     <td>
-                        <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
-                        <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                        <a href="/loans/{{ $loan->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
+                        <a href="/loans/{{ $loan->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
                     </td>
                 </tr>
             @endforeach

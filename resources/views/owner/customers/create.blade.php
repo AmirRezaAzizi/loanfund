@@ -5,26 +5,21 @@
 @endsection
 
 @section('content')
-    <div class="row my-3">
-        <div class="col-10">
-            @include('owner/layouts/error')
-        </div>
-    </div>
     <form method="POST" action="/customers" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">نام</label>
+                <label for="fname">{{ trans('global.customer.fname') }}</label>
                 <input type="text" class="form-control" id="fname" name="fname" value="{{ old('fname') }}" required>
                 <div class="invalid-feedback">
-نام الزامی می باشد
+{{ trans('global.customer.fname') }} الزامی می باشد
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="lname">نام خانوادگی</label>
+                <label for="lname">{{ trans('global.customer.fname') }} خانوادگی</label>
                 <input type="text" class="form-control" id="lname" name="lname" value="{{ old('lname') }}" required>
                 <div class="invalid-feedback">
-                    نام خانوادگی الزامی می باشد
+                    {{ trans('global.customer.lname') }} الزامی می باشد
                 </div>
             </div>
         </div>
@@ -39,7 +34,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="father">نام پدر</label>
+                <label for="father">{{ trans('global.customer.fname') }} پدر</label>
                 <input type="text" class="form-control" id="father" name="father" value="{{ old('father') }}">
             </div>
             <div class="form-group col-md-5">
@@ -49,10 +44,10 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="mobile">شماره موبایل</label>
+                <label for="mobile">{{ trans('global.customer.mobile') }}</label>
                 <input type="text" class="form-control text-left @if ($errors->has('mobile')) is-invalid @endif" id="mobile" placeholder="۰۹xxxxxxxxx" name="mobile" pattern="{11}" value="{{ old('mobile') }}" required>
                 <div class="invalid-feedback">
-شماره موبایل الزامی بوده و باید ۱۱ رقم و به زبان فارسی باشد
+{{ trans('global.customer.mobile') }} الزامی بوده و باید ۱۱ رقم و به زبان فارسی باشد
                 </div>
             </div>
             <div class="form-group col-md-5">
@@ -84,19 +79,19 @@
                 <input type="text" class="form-control" id="reference" name="reference" value="{{ old('reference') }}">
             </div>
             <div class="form-group col-md-5">
-                <label for="sponsor">ضامن</label>
+                <label for="sponsor">{{ trans('global.loan.sponsor') }}</label>
                 <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor') }}">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="description">توضیحات</label>
+                <label for="description">{{ trans('global.global.description') }}</label>
                 <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
+                <button type="submit" class="btn float-left btn-primary btn-lg">{{ trans('global.global.submit') }}</button>
             </div>
         </div>
     </form>

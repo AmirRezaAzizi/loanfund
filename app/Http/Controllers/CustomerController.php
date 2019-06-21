@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Http\Requests\CustomerRequest;
-use App\Rules\CustomerDisable;
+use App\Rules\DisableCustomer;
+use App\Traits\Statusable;
 
 
 class CustomerController extends Controller
 {
+    use Statusable;
     /**
      * Display a listing of the resource.
      *
@@ -85,9 +87,8 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-
             $request->validate([
-                'status' => new CustomerDisable($customer),
+                'status' => new DisableCustomer($customer),
                 'closed_date' => 'required_if:status,inactive'
             ]);
 

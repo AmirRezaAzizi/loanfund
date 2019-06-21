@@ -13,11 +13,11 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>ردیف</th>
-                <th>شماره عضویت</th>
-                <th>نام خانوادگی</th>
-                <th>نام</th>
-                <th>عملیات</th>
+                <th>{{ trans('global.global.row') }}</th>
+                <th>{{ trans('global.customer.id') }}</th>
+                <th>{{ trans('global.customer.lname') }}</th>
+                <th>{{ trans('global.customer.fname') }}</th>
+                <th>{{ trans('global.global.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +28,8 @@
                 <td>{{ $customer->lname }}</td>
                 <td>{{ $customer->fname }}</td>
                 <td>
-                    <a href="/customers/{{ $customer->id }}" class="btn btn-outline-primary btn-sm" role="button">مشاهده</a>
-                    <a href="/customers/{{ $customer->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">ویرایش</a>
+                    <a href="/customers/{{ $customer->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
+                    <a href="/customers/{{ $customer->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
                 </td>
             </tr>
         @endforeach

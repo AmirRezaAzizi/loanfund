@@ -1,37 +1,32 @@
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">ویرایش اطلاعات عضو</h1>
+    <h1 class="h2">{{ trans('global.global.edit') }} اطلاعات عضو</h1>
 @endsection
 
 @section('content')
-    <div class="row my-3">
-        <div class="col-10">
-            @include('owner/layouts/error')
-        </div>
-    </div>
     <form method="POST" action="/customers/{{ $customer->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="code">شماره عضویت</label>
+                <label for="code">{{ trans('global.customer.id') }}</label>
                 <input type="text" class="form-control text-left" id="code" readonly value="{{ convertNumbers($customer->id) }}">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">نام</label>
+                <label for="fname">{{ trans('global.customer.fname') }}</label>
                 <input type="text" class="form-control" id="fname" name="fname" value="{{ old('fname', $customer->fname) }}" required>
                 <div class="invalid-feedback">
-                    نام الزامی می باشد
+                    {{ trans('global.customer.fname') }} الزامی می باشد
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="lname">نام خانوادگی</label>
+                <label for="lname">{{ trans('global.customer.lname') }}</label>
                 <input type="text" class="form-control" id="lname" name="lname" value="{{ old('lname', $customer->lname) }}" required>
                 <div class="invalid-feedback">
-                    نام خانوادگی الزامی می باشد
+                    {{ trans('global.customer.lname') }} الزامی می باشد
                 </div>
             </div>
         </div>
@@ -56,10 +51,10 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="mobile">شماره موبایل</label>
+                <label for="mobile">{{ trans('global.customer.mobile') }}</label>
                 <input type="text" class="form-control text-left @if ($errors->has('mobile')) is-invalid @endif" id="mobile" placeholder="۰۹xxxxxxxxx" name="mobile" pattern="{11}" value="{{ old('mobile', $customer->mobile) }}" required>
                 <div class="invalid-feedback">
-                    شماره موبایل الزامی بوده و باید ۱۱ رقم و به زبان فارسی باشد
+                    {{ trans('global.customer.mobile') }} الزامی بوده و باید ۱۱ رقم و به زبان فارسی باشد
                 </div>
             </div>
             <div class="form-group col-md-5">
@@ -82,7 +77,7 @@
                 <input type="text" class="form-control text-left @if ($errors->has('post')) is-invalid @endif" id="post" name="post" pattern="{10}" value="{{ old('post', $customer->post) }}">
             </div>
             <div class="form-group col-md-5">
-                <label for="status">وضعیت</label>
+                <label for="status">{{ trans('global.customer.status') }}</label>
                 <select name="status" id="status" class="form-control">
                     <option value="active"
                             {{ (old("status") == 'active' ? "selected":"") }}
@@ -118,19 +113,19 @@
                 <input type="text" class="form-control" id="reference" name="reference" value="{{ old('reference', $customer->reference) }}">
             </div>
             <div class="form-group col-md-5">
-                <label for="sponsor">ضامن</label>
+                <label for="sponsor">{{ trans('global.loan.sponsor') }}</label>
                 <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor', $customer->sponsor) }}">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="description">توضیحات</label>
+                <label for="description">{{ trans('global.global.description') }}</label>
                 <textarea class="form-control" id="description" name="description">{{ old('description', $customer->description) }}</textarea>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-10">
-                <button type="submit" class="btn float-left btn-primary btn-lg">ثبت</button>
+                <button type="submit" class="btn float-left btn-primary btn-lg">{{ trans('global.global.submit') }}</button>
             </div>
         </div>
     </form>

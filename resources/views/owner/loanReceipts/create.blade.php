@@ -5,61 +5,56 @@
 @endsection
 
 @section('content')
-    <div class="row my-3">
-        <div class="col-10">
-            @include('owner/layouts/error')
-        </div>
-    </div>
     <form method="POST" action="/loans/{{ $loan->id }}/receipts" class="needs-validation" novalidate>
         {{ csrf_field() }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="fname">عضو اصلی</label>
+                <label for="fname">{{ trans('global.customer.customerFullName') }}</label>
                 <input type="text" class="form-control" id="fname" value="{{ $loan->bankbook->customer->fname }} {{ $loan->bankbook->customer->lname }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="code">شماره عضویت</label>
+                <label for="code">{{ trans('global.customer.id') }}</label>
                 <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->customer->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
 
             <div class="form-group col-md-5">
-                <label for="title">عنوان دفترچه</label>
+                <label for="title">{{ trans('global.bankbook.title') }}</label>
                 <input type="text" class="form-control" id="title" value="{{ $loan->bankbook->title }}" readonly>
             </div>
             <div class="form-group col-md-5">
-                <label for="code">شماره دفترچه</label>
+                <label for="code">{{ trans('global.bankbook.full_code') }}</label>
                 <input type="text" class="form-control" id="code" value="{{ convertNumbers($loan->bankbook->full_code) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label>مانده بدهی وام</label>
+                <label>{{ trans('global.loan.nowBalance') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left" value="{{ convertNumbers(number_format($balance)) }}" readonly>
                     <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
+                        <div class="input-group-text">{{ trans('global.global.currencyName') }}</div>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="id">شماره وام</label>
+                <label for="id">{{ trans('global.loan.id') }}</label>
                 <input type="text" class="form-control" id="id" value="{{ convertNumbers($loan->id) }}" readonly>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="amount">مبلغ قبض</label>
+                <label for="amount">{{ trans('global.receipt.amount') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control first_focus text-left @if ($errors->has('amount')) is-invalid @endif" id="amount" name="amount" required value="{{ convertNumbers(old('amount', $loan->monthly)) }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">تومان</div>
+                        <div class="input-group-text">{{ trans('global.global.currencyName') }}</div>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <label for="date">تاریخ ثبت</label>
+                <label for="date">{{ trans('global.global.createDate') }}</label>
                 <div class="input-group mb-2">
                     ‍‍  <input type="text" class="form-control text-left @if ($errors->has('date')) is-invalid @endif" id="date" name="date" required value="{{ old('date', $date) }}" pattern="{4}/{2}/{2}">
                     <div class="input-group-prepend">
@@ -73,8 +68,15 @@
         </div>
 
         <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="description">{{ trans('global.global.description') }}</label>
+                <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
             <div class="col-md-10 text-left">
-                <button type="submit" class="btn btn-primary btn-lg">ثبت</button>
+                <button type="submit" class="btn btn-primary btn-lg">{{ trans('global.global.submit') }}</button>
             </div>
         </div>
     </form>

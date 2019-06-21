@@ -14,7 +14,7 @@
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-                <th>ردیف</th>
+                <th>{{ trans('global.global.row') }}</th>
                 <th>عنوان</th>
                 <th>بدهکار</th>
                 <th>بستانکار</th>

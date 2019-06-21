@@ -23,6 +23,7 @@ class LoanReceiptController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function create(Loan $loan)
@@ -39,7 +40,8 @@ class LoanReceiptController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ReceiptRequest|Request $request
+     * @param Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function store(ReceiptRequest $request, Loan $loan)
@@ -50,17 +52,6 @@ class LoanReceiptController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\LoanReceipt  $loanReceipt
-     * @return \Illuminate\Http\Response
-     */
-    public function show(LoanReceipt $loanReceipt)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\LoanReceipt  $loanReceipt
@@ -68,6 +59,8 @@ class LoanReceiptController extends Controller
      */
     public function edit(LoanReceipt $loanReceipt)
     {
+        if ($loanReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
 
         $balance = $loanReceipt->loan->now_balance();
         return view('owner.loanReceipts.edit', compact('loanReceipt', 'balance'));
@@ -82,6 +75,9 @@ class LoanReceiptController extends Controller
      */
     public function update(ReceiptRequest $request, LoanReceipt $loanReceipt)
     {
+        if ($loanReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
+
         $loanReceipt->update($request->all());
         return redirect('/loans/'.$loanReceipt->loan->id);
     }
@@ -94,6 +90,7 @@ class LoanReceiptController extends Controller
      */
     public function destroy(LoanReceipt $loanReceipt)
     {
-        //
+        if ($loanReceipt->confirmed)
+            return back()->with('error', trans('global.global.isConfirmedMessage'));
     }
 }

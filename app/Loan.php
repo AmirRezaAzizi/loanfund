@@ -6,7 +6,16 @@ use Morilog\Jalali\CalendarUtils;
 
 class Loan extends BaseModel
 {
-    protected $fillable = ['total', 'total_number', 'monthly', 'status', 'sponsor', 'created_date', 'closed_date'];
+    protected $fillable = [
+        'total',
+        'total_number',
+        'monthly',
+        'status',
+        'sponsor',
+        'description',
+        'created_date',
+        'closed_date'
+    ];
 
     public function bankbook()
     {
@@ -44,6 +53,11 @@ class Loan extends BaseModel
             return convertNumbers(jdate($value)->format('Y/m/d'));
         else
             return null;
+    }
+
+    public function getTotalNotPaidAttribute()
+    {
+        return count($this->loanReceipts) . '/' . $this->total_number;
     }
 
     public function setCreatedDateAttribute($value)

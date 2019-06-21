@@ -11,7 +11,8 @@ class BankbookReceipt extends Model
         'balance',
         'amount',
         'date',
-        'type'
+        'type',
+        'description',
     ];
 
     public function bankbook()
