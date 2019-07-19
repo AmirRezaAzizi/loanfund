@@ -2,31 +2,31 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="/">
+                <a class="nav-link {{ request()->is('/') ? 'active' : ''}}" href="/">
                     <i class="fas fa-home"></i>
-                    داشبورد <span class="sr-only">(current)</span>
+                    داشبورد
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/customers">
+                <a class="nav-link {{ request()->is('customers*')  ? 'active' : ''}}" href="/customers">
                     <i class="fas fa-users"></i>
                     اعضا
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bankbooks">
+                <a class="nav-link {{ request()->is('bankbooks*') ? 'active' : ''}}" href="/bankbooks">
                     <i class="fas fa-users"></i>
                     دفاتر
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/loans">
+                <a class="nav-link {{ request()->is('loans*') ? 'active' : ''}}" href="/loans">
                     <i class="fas fa-users"></i>
                     وام ها
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/journal">
+                <a class="nav-link {{ request()->is('journal*') ? 'active' : ''}}" href="/journal">
                     <i class="fas fa-users"></i>
                     دفتر روزنامه
                 </a>
@@ -38,19 +38,19 @@
         </h6>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="/bankbooks/inactive">
+                <a class="nav-link {{ request()->is('bankbooks/inactive') ? 'active' : ''}}" href="/bankbooks/inactive">
                     <i class="fas fa-users"></i>
                     دفاتر غیرفعال
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/loans/inactive">
+                <a class="nav-link {{ request()->is('loans/inactive') ? 'active' : ''}}" href="/loans/inactive">
                     <i class="fas fa-users"></i>
                     وام های غیرفعال
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/customers/inactive">
+                <a class="nav-link {{ request()->is('customers/inactive') ? 'active' : ''}}" href="/customers/inactive">
                     <i class="fas fa-users"></i>
                     اعضا غیرفعال
                 </a>
