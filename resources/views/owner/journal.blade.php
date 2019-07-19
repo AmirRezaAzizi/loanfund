@@ -26,7 +26,7 @@
     </form>
     <div class="pull-left">
         <a href="{{ route('confirmAll') }}" class="btn btn-danger" role="button"><i class="fa fa-check" aria-hidden="true"></i> ثبت نهایی</a>
-        <a href="" class="btn btn-primary" role="button"><i class="fa fa-print" aria-hidden="true"></i> چاپ</a>
+        <button class="btn btn-primary" onclick="print()"><i class="fa fa-print" aria-hidden="true"></i> چاپ</button>
     </div>
 @endsection
 
