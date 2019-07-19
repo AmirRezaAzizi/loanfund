@@ -23,3 +23,25 @@ if (! function_exists('convertNumbers')) {
         return str_replace($farsi_array, $english_array, $string);
     }
 }
+
+if (! function_exists('numberToMonthName')) {
+    function monthNumberToMonthName($number)
+    {
+        $month_names = [
+            "فروردین",
+            "اردیبهشت",
+            "خرداد",
+            "تیر",
+            "مرداد",
+            "شهریور",
+            "مهر",
+            "آبان",
+            "آذر",
+            "دی",
+            "بهمن",
+            "اسفند"
+        ];
+
+        return $month_names[$number - 1];
+    }
+}

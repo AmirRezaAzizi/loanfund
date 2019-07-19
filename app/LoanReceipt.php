@@ -33,7 +33,7 @@ class LoanReceipt extends Model
     public function setDateAttribute($value)
     {
         if ($value) {
-            $date = convertNumbers($value, true);
+            $date = date('Y/m/d',strtotime(convertNumbers($value, true)));
             $this->attributes['date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', $date)->format('Y-m-d');
         } else {
             $this->attributes['date'] = null;

@@ -37,6 +37,7 @@ class BankbookController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function create(Customer $customer)
@@ -52,7 +53,8 @@ class BankbookController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Customer $customer)
@@ -62,8 +64,8 @@ class BankbookController extends Controller
         if (!$request->title) {
             $request->request->add(['title' => $customer->fname . ' ' . $customer->lname]);
         }
+
         $request->validate([
-//            'first_balance' => 'required|persian_num',
             'monthly' => 'required|persian_num',
         ]);
 

@@ -77,7 +77,7 @@ class Bankbook extends BaseModel
     public function setCreatedDateAttribute($value)
     {
         if ($value) {
-            $created_date = convertNumbers($value, true);
+            $created_date = date('Y/m/d',strtotime(convertNumbers($value, true)));
             $this->attributes['created_date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', $created_date)->format('Y-m-d');
         } else {
             $this->attributes['created_date'] = null;
