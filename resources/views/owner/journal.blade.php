@@ -22,11 +22,11 @@
             @endfor
         </select>
         &nbsp;&nbsp;
-        <button type="submit" class="btn btn-warning btn-sm">اعمال</button>
+        <button type="submit" class="btn btn-warning btn-sm no-print">اعمال</button>
     </form>
     <div class="pull-left">
-        <a href="{{ route('confirmAll') }}" class="btn btn-danger" role="button"><i class="fa fa-check" aria-hidden="true"></i> ثبت نهایی</a>
-        <button class="btn btn-primary" onclick="print()"><i class="fa fa-print" aria-hidden="true"></i> چاپ</button>
+        <a href="{{ route('confirmAll') }}" class="btn btn-danger no-print" role="button" onclick="return confirm('درصورت تایید تمامی اسناد ثبت شده غیرقابل ویرایش می شوند.')"><i class="fa fa-check" aria-hidden="true"></i> ثبت نهایی</a>
+        <button class="btn btn-primary no-print" onclick="printPage()"><i class="fa fa-print" aria-hidden="true"></i> چاپ</button>
     </div>
 @endsection
 

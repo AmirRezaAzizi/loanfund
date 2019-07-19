@@ -15,4 +15,5 @@
     <link href="/dashboard.css" rel="stylesheet">
     <link href="/css/all.min.css" rel="stylesheet">
     <link href="/css/fontiran.css" rel="stylesheet">
+    <link href="/css/print.css" rel="stylesheet">
 </head>

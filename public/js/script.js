@@ -17,3 +17,8 @@ $(document).ready(function(){
     }
     traverse(document.body);
 });
+
+function printPage()
+{
+    window.print();
+}
