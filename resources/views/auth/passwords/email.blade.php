@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">بازیابی رمز عبور</div>
+            <div class="card bg-dark text-white">
+                <div class="card-header text-right">بازیابی رمز عبور</div>
 
                 <div class="card-body">
                     @if (session('status'))

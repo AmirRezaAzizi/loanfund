@@ -53,6 +53,9 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'dump' => [
+                'dump_binary_path' => '/usr/local/opt/mysql-client/bin',
+            ],
         ],
 
         'pgsql' => [

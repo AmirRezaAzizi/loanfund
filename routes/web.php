@@ -11,9 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+
 Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
     Route::get('/', function () {
-        return view('owner/main');
+//        return view('owner/main');
+        return redirect('/customers');
     });
 
     // Customers
@@ -28,7 +32,7 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
             Route::get('/{customer}/edit', 'CustomerController@edit');
             Route::post('/{customer}/bankbooks', 'BankbookController@store');
             Route::get('/{customer}/bankbooks/create', 'BankbookController@create');
-
+            Route::post('/search', 'SearchController@index')->name('search');
         });
 
     // Bankbooks
@@ -85,6 +89,8 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
 
     Route::get('/confirmAllDocuments', 'ConfirmController@confirm')->name('confirmAll');
 
+    Route::get('/backup', 'BackupController@index')->name('backup.index');
+    Route::post('/backup', 'BackupController@store')->name('backup.store');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);

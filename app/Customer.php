@@ -3,6 +3,7 @@
 namespace App;
 
 
+
 class Customer extends BaseModel
 {
     protected $guarded = ['id'];

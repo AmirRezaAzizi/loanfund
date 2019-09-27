@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">تغییر رمز عبور</div>
+            <div class="card bg-dark text-white">
+                <div class="card-header text-right">تغییر رمز عبور</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.update') }}">

@@ -1,12 +1,12 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar no-print">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('/') ? 'active' : ''}}" href="/">
-                    <i class="fas fa-home"></i>
-                    داشبورد
-                </a>
-            </li>
+            {{--<li class="nav-item">--}}
+                {{--<a class="nav-link {{ request()->is('/') ? 'active' : ''}}" href="/">--}}
+                    {{--<i class="fas fa-home"></i>--}}
+                    {{--داشبورد--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('customers*')  ? 'active' : ''}}" href="/customers">
                     <i class="fas fa-users"></i>
@@ -29,6 +29,12 @@
                 <a class="nav-link {{ request()->is('journal*') ? 'active' : ''}}" href="/journal">
                     <i class="fas fa-users"></i>
                     دفتر روزنامه
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('backup*') ? 'active' : ''}}" href="/backup">
+                    <i class="fas fa-users"></i>
+                    پشتیبان گیری
                 </a>
             </li>
         </ul>
