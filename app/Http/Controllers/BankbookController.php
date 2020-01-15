@@ -66,7 +66,7 @@ class BankbookController extends Controller
         }
 
         $request->validate([
-            'monthly' => 'required|persian_num',
+            'monthly' => 'required',
         ]);
 
         $customer->createBankbook($request);
@@ -110,7 +110,7 @@ class BankbookController extends Controller
             'status' => new DisableBankbook($bankbook),
             'closed_date' => 'required_if:status,inactive',
 //            'first_balance' => 'required|persian_num',
-            'monthly' => 'required|persian_num',
+            'monthly' => 'required',
         ]);
 
         $bankbook->update($request->all());

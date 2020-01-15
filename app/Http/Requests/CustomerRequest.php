@@ -26,10 +26,10 @@ class CustomerRequest extends FormRequest
         return [
             'fname' => 'required|max:255',
             'lname' => 'required|max:255',
-            'national' => 'nullable|max:10|persian_num',
-            'mobile' => 'required|max:11|persian_num',
-            'phone' => 'nullable|max:11|persian_num',
-            'post' => 'nullable|max:10|persian_num'
+            'national' => 'nullable|max:10',
+            'mobile' => 'required|max:11',
+            'phone' => 'nullable|max:11',
+            'post' => 'nullable|max:10'
         ];
     }
 }

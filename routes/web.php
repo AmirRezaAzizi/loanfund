@@ -11,8 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
     Route::get('/', function () {
