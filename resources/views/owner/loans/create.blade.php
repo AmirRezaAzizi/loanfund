@@ -73,7 +73,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="sponsor">{{ trans('global.loan.sponsor') }}</label>
-                <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor') }}">
+                <input type="text" class="form-control" id="sponsor" name="sponsor" value="{{ old('sponsor') }}" required>
             </div>
             <div class="col-md-5 text-left">
                 <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px">{{ trans('global.global.submit') }}</button>

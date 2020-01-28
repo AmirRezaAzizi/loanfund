@@ -47,8 +47,16 @@
         </tr>
         <tr>
             <th>مانده وام</th>
-            <td>@if($bankbook->activeLoan())
+            <td>
+                @if($bankbook->activeLoan())
                     {{ number_format($bankbook->activeLoan()->now_balance())  }}
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th>مبلغ قسط</th>
+            <td>@if($bankbook->activeLoan())
+                    {{ number_format($bankbook->activeLoan()->monthly)  }}
                 @endif
             </td>
         </tr>
@@ -132,7 +140,7 @@
             <thead>
             <tr>
                 <th colspan="6" style="border: 0"></th>
-                <th colspan="3" class="text-center">اقساط</th>
+                <th colspan="3" class="text-center">تعداد اقساط</th>
                 <th colspan="1" style="border: 0"></th>
             </tr>
             <tr>

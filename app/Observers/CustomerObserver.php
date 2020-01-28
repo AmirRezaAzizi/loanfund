@@ -16,11 +16,11 @@ class CustomerObserver
      */
     public function created(Customer $customer)
     {
-        AdminLog::create([
-            'action' => 'مشتری جدید ایجاد شد.',
-            'description' => $customer->fname . ' ' . $customer->lname,
-            'user_id' => Auth::user()->id,
-        ]);
+//        AdminLog::create([
+//            'action' => 'مشتری جدید ایجاد شد.',
+//            'description' => $customer->fname . ' ' . $customer->lname,
+//            'user_id' => Auth::user()->id,
+//        ]);
     }
 
     /**
@@ -31,7 +31,11 @@ class CustomerObserver
      */
     public function updated(Customer $customer)
     {
-        //
+//        AdminLog::create([
+//            'action' => 'مشتری ویرایش شد.',
+//            'description' => $customer->fname . ' ' . $customer->lname,
+//            'user_id' => Auth::user()->id,
+//        ]);
     }
 
     /**

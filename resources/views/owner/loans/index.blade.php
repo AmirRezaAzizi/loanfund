@@ -9,8 +9,8 @@
         <table class="table table-striped table-bordered table-sm">
             <thead>
               <tr>
-                  <th colspan="7" style="border: 0"></th>
-                  <th colspan="4" class="text-center">اقساط</th>
+                  <th colspan="8" style="border: 0"></th>
+                  <th colspan="3" class="text-center">تعداد اقساط</th>
                   <th colspan="1" style="border: 0"></th>
               </tr>
             <tr>

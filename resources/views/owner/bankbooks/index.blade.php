@@ -18,7 +18,7 @@
                 <th>{{ trans('global.bankbook.full_code') }}</th>
                 <th>{{ trans('global.customer.fname') }}</th>
                 <th>{{ trans('global.bankbook.monthly') }}</th>
-                <th>{{ trans('global.bankbook.nowBalance') }}</th>
+                <th>پس انداز</th>
                 <th>وام</th>
                 <th>{{ trans('global.loan.monthly') }}</th>
                 <th>{{ trans('global.global.action') }}</th>
@@ -32,8 +32,19 @@
                     <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
                     <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
                     <td class="text-left">{{ number_format($bankbook->now_balance()) }}</td>
-                    <td class="text-left">-</td>
-                    <td class="text-left">-</td>
+                    <td class="text-left">
+                        <?php
+                            $activeLoan = $bankbook->activeLoan();
+                        ?>
+                        @if($activeLoan)
+                            {{ number_format($activeLoan->now_balance())  }}
+                        @endif
+                    </td>
+                    <td class="text-left">
+                        @if($activeLoan)
+                            {{ number_format($activeLoan->monthly)  }}
+                        @endif
+                    </td>
                     <td>
                         <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
                         <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>

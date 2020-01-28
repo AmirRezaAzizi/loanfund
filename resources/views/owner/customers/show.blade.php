@@ -93,9 +93,9 @@
         <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
-                <th colspan="5" style="border: 0"></th>
-                <th colspan="2" class="text-center">{{ trans('global.loan.total') }}</th>
-                <th colspan="1" style="border: 0"></th>
+                <th colspan="4" style="border: 0"></th>
+                <th colspan="2" class="text-center">مانده</th>
+                <th colspan="2" style="border: 0"></th>
             </tr>
             <tr>
                 <th>{{ trans('global.global.row') }}</th>
@@ -103,8 +103,8 @@
                 <th>{{ trans('global.customer.fname') }}</th>
                 <th>{{ trans('global.bankbook.monthly') }}</th>
                 <th>{{ trans('global.bankbook.nowBalance') }}</th>
-                <th>{{ trans('global.loan.nowBalance') }}</th>
-                <th>قسط</th>
+                <th>وام</th>
+                <th>{{ trans('global.loan.monthly') }}</th>
                 <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
@@ -117,13 +117,16 @@
                     <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
                     <td class="text-left">{{ number_format($bankbook->now_balance()) }}</td>
                     <td class="text-left">
-                        @if($bankbook->activeLoan())
-                            {{ number_format($bankbook->activeLoan()->now_balance())  }}
+                        <?php
+                            $activeLoan = $bankbook->activeLoan();
+                        ?>
+                        @if($activeLoan)
+                            {{ number_format($activeLoan->now_balance())  }}
                         @endif
                     </td>
                     <td class="text-left">
-                        @if($bankbook->activeLoan())
-{{--                            {{ number_format($bankbook->activeLoan()->)  }}--}}
+                        @if($activeLoan)
+                            {{ number_format($activeLoan->monthly)  }}
                         @endif
                     </td>
                     <td>
@@ -141,8 +144,8 @@
         <table class="table table-striped table-bordered table-sm">
             <thead>
             <tr>
-                <th colspan="5" style="border: 0"></th>
-                <th colspan="4" class="text-center">اقساط</th>
+                <th colspan="6" style="border: 0"></th>
+                <th colspan="3" class="text-center">تعداد اقساط</th>
                 <th colspan="1" style="border: 0"></th>
             </tr>
             <tr>
@@ -159,10 +162,10 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($customer->bankbooks as $bankbook)
-                @foreach($bankbook->loans as $index => $loan)
+            @foreach($customer->bankbooks as $index1 => $bankbook)
+                @foreach($bankbook->loans as $index2 => $loan)
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $index1 + $index2 + 1 }}</td>
                         <td class="text-left">{{ $loan->id }}</td>
                         <td class="text-left">{{ $loan->bankbook->full_code }}</td>
                         <td class="text-left">{{ number_format($loan->total) }}</td>
