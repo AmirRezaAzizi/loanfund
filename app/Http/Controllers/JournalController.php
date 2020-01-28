@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\JournalRecord;
+use Illuminate\Support\Facades\DB;
 
 
 class JournalController extends Controller
@@ -22,10 +23,11 @@ class JournalController extends Controller
             return view('owner.journal', compact('thisYear', 'thisMonth','error'));
         }
 
-
         // get previous
-        $previousBed = JournalRecord::where('date', '<', $records->first()->date)->sum('bed');
-        $previousBes = JournalRecord::where('date', '<', $records->first()->date)->sum('bes');
+        $minDateRecords = $records->sortBy('date')->first()->date;
+
+        $previousBed = JournalRecord::where(DB::raw('DATE(date)'), '<', $minDateRecords)->sum('bed');
+        $previousBes = JournalRecord::where(DB::raw('DATE(date)'), '<', $minDateRecords)->sum('bes');
 
         // next
         $nextBed = $records->sum('bed') + $previousBed;

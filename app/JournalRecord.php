@@ -8,6 +8,9 @@ use Morilog\Jalali\CalendarUtils;
 class JournalRecord extends Model
 {
     public $timestamps = false;
+
+    protected $dates = ['date'];
+
     protected $fillable = [
         'bankbook_code',
         'bankbook_title',
