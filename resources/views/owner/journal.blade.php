@@ -63,7 +63,7 @@
                     <td class="text-left">{{ $counter++ }}</td>
                     <td class="text-left">{{ str_replace('-', '/', $record['date']) }}</td>
                     <td>{{ $record['title'] }}</td>
-                    <td>{{ $record['bankbook_title'] }} ({{ $record['bankbook_code'] }})</td>
+                    <td>{{ $record['bankbook_title'] }} <span dir="ltr">({{ $record['bankbook_code'] }})</span></td>
                     <td class="text-left">
                         @if($record['bed'] != 0)
                             {{ number_format($record['bed']) }}

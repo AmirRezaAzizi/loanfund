@@ -11,7 +11,8 @@
             <tr>
                 <th colspan="4" style="border: 0"></th>
                 <th colspan="2" class="text-center">مانده</th>
-                <th colspan="2" style="border: 0"></th>
+                <th colspan="2" class="text-center">اقساط</th>
+                <th colspan="1" style="border: 0"></th>
             </tr>
             <tr>
                 <th>{{ trans('global.global.row') }}</th>
@@ -21,6 +22,7 @@
                 <th>پس انداز</th>
                 <th>وام</th>
                 <th>{{ trans('global.loan.monthly') }}</th>
+                <th>تعداد</th>
                 <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
@@ -43,6 +45,11 @@
                     <td class="text-left">
                         @if($activeLoan)
                             {{ number_format($activeLoan->monthly)  }}
+                        @endif
+                    </td>
+                    <td class="text-left">
+                        @if($activeLoan)
+                            {{ $activeLoan->total_not_paid  }}
                         @endif
                     </td>
                     <td>

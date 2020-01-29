@@ -95,16 +95,18 @@
             <tr>
                 <th colspan="4" style="border: 0"></th>
                 <th colspan="2" class="text-center">مانده</th>
-                <th colspan="2" style="border: 0"></th>
+                <th colspan="2" class="text-center">اقساط</th>
+                <th colspan="1" style="border: 0"></th>
             </tr>
             <tr>
                 <th>{{ trans('global.global.row') }}</th>
                 <th>{{ trans('global.bankbook.full_code') }}</th>
                 <th>{{ trans('global.customer.fname') }}</th>
                 <th>{{ trans('global.bankbook.monthly') }}</th>
-                <th>{{ trans('global.bankbook.nowBalance') }}</th>
+                <th>پس انداز</th>
                 <th>وام</th>
                 <th>{{ trans('global.loan.monthly') }}</th>
+                <th>تعداد</th>
                 <th>{{ trans('global.global.action') }}</th>
             </tr>
             </thead>
@@ -127,6 +129,11 @@
                     <td class="text-left">
                         @if($activeLoan)
                             {{ number_format($activeLoan->monthly)  }}
+                        @endif
+                    </td>
+                    <td class="text-left">
+                        @if($activeLoan)
+                            {{ $activeLoan->total_not_paid  }}
                         @endif
                     </td>
                     <td>
@@ -162,10 +169,13 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($customer->bankbooks as $index1 => $bankbook)
-                @foreach($bankbook->loans as $index2 => $loan)
+            <?php
+                $index = 1;
+            ?>
+            @foreach($customer->bankbooks as $bankbook)
+                @foreach($bankbook->loans as $loan)
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
-                        <td>{{ $index1 + $index2 + 1 }}</td>
+                        <td>{{ $index++ }}</td>
                         <td class="text-left">{{ $loan->id }}</td>
                         <td class="text-left">{{ $loan->bankbook->full_code }}</td>
                         <td class="text-left">{{ number_format($loan->total) }}</td>

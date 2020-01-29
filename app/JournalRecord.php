@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Morilog\Jalali\CalendarUtils;
 
 class JournalRecord extends Model
 {
     public $timestamps = false;
-
-    protected $dates = ['date'];
 
     protected $fillable = [
         'bankbook_code',
