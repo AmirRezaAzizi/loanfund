@@ -150,7 +150,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($bankbook->loans as $index => $loan)
+                @foreach($bankbook->loans()->active()->get() as $index => $loan)
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
                         <td>{{ $index + 1 }}</td>
                         <td class="text-left">{{ $loan->id }}</td>
