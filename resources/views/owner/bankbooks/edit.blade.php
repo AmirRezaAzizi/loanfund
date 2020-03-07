@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="/bankbooks/{{ $bankbook->id }}/" class="needs-validation" novalidate>
+    <form method="POST" action="/bankbooks/{{ $bankbook->id }}" class="needs-validation" novalidate>
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="form-row">

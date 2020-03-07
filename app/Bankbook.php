@@ -83,4 +83,9 @@ class Bankbook extends BaseModel
             $this->attributes['created_date'] = null;
         }
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

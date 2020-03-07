@@ -61,13 +61,6 @@
             </td>
         </tr>
         <tr>
-            <th>{{ trans('global.bankbook.monthly') }}</th>
-            <td>@if($bankbook->activeLoan())
-                    {{  number_format($bankbook->activeLoan()->monthly) }}
-                @endif
-            </td>
-        </tr>
-        <tr>
             <th>{{ trans('global.global.description') }}</th>
             <td>{{ $bankbook->description }}</td>
         </tr>

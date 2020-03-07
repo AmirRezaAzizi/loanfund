@@ -111,7 +111,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($customer->bankbooks as $index => $bankbook)
+            @foreach($customer->bankbooks()->active()->get() as $index => $bankbook)
                 <tr class="{{ $bankbook-> status == 'inactive' ? 'inactive-bg' : '' }}">
                     <td>{{ $index + 1 }}</td>
                     <td class="text-left">{{ $bankbook->full_code }}</td>
@@ -173,7 +173,7 @@
                 $index = 1;
             ?>
             @foreach($customer->bankbooks as $bankbook)
-                @foreach($bankbook->loans as $loan)
+                @foreach($bankbook->loans()->active()->get() as $loan)
                     <tr  class="{{ $loan-> status == 'inactive' ? 'inactive-bg' : '' }}">
                         <td>{{ $index++ }}</td>
                         <td class="text-left">{{ $loan->id }}</td>
