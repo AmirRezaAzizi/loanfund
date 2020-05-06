@@ -67,10 +67,7 @@
                 <td class="text-left">{{ number_format($totalLoanBalance) }}</td>
                 <td class="text-left">{{ number_format($totalLoanMonthly) }}</td>
                 <td class="text-left"></td>
-                <td>
-                    <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
-                    <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
-                </td>
+                <td></td>
             </tr>
             </tbody>
         </table>
