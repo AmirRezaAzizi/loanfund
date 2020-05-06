@@ -58,6 +58,20 @@
                     </td>
                 </tr>
             @endforeach
+            <tr>
+                <td></td>
+                <td class="text-left"></td>
+                <td></td>
+                <td class="text-left">{{ number_format($totalMonthly) }}</td>
+                <td class="text-left">{{ number_format($totalBalance) }}</td>
+                <td class="text-left">{{ number_format($totalLoanBalance) }}</td>
+                <td class="text-left">{{ number_format($totalLoanMonthly) }}</td>
+                <td class="text-left"></td>
+                <td>
+                    <a href="/bankbooks/{{ $bankbook->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
+                    <a href="/bankbooks/{{ $bankbook->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
