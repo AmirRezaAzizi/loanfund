@@ -99,7 +99,7 @@
                             <button class="btn btn-outline-danger btn-sm">‌{{ trans('global.global.confirmed') }}</button>
                         @else
 
-                            <form method="POST" action="/loanReceipts/{{ $receipt->id }}/">
+                            <form method="POST" action="/loanReceipts/{{ $receipt->id }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 

@@ -115,7 +115,7 @@
                         @if($receipt->confirmed)
                             <button class="btn btn-outline-danger btn-sm">‌{{ trans('global.global.confirmed') }}</button>
                         @else
-                            <form method="POST" action="/bankbookReceipts/{{ $receipt->id }}/">
+                            <form method="POST" action="/bankbookReceipts/{{ $receipt->id }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
