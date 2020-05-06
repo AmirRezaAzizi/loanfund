@@ -115,7 +115,15 @@
                         @if($receipt->confirmed)
                             <button class="btn btn-outline-danger btn-sm">‌{{ trans('global.global.confirmed') }}</button>
                         @else
-                            <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
+                            <form method="POST" action="/bankbookReceipts/{{ $receipt->id }}/">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <div class="form-group">
+                                    <a href="/bankbookReceipts/{{ $receipt->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="حذف">
+                                </div>
+                            </form>
                         @endif
                     </td>
                 </tr>

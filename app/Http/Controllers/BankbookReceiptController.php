@@ -74,12 +74,17 @@ class BankbookReceiptController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BankbookReceipt  $bankbookReceipt
+     * @param \App\BankbookReceipt $bankbookReceipt
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(BankbookReceipt $bankbookReceipt)
     {
         if ($bankbookReceipt->confirmed)
             return back()->with('error', trans('global.global.isConfirmedMessage'));
+
+        $bankbookReceipt->delete();
+
+        return redirect('/bankbooks/'.$bankbookReceipt->bankbook->id);
     }
 }

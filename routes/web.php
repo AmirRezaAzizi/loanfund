@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
     Route::prefix('bankbookReceipts')->group(function () {
         Route::get('/{bankbookReceipt}/edit', 'BankbookReceiptController@edit');
         Route::put('/{bankbookReceipt}', 'BankbookReceiptController@update');
+        Route::delete('/{bankbookReceipt}', 'BankbookReceiptController@destroy');
 
     });
 
@@ -78,6 +79,7 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
     Route::prefix('loanReceipts')->group(function () {
         Route::get('/{loanReceipt}/edit', 'LoanReceiptController@edit');
         Route::put('/{loanReceipt}', 'LoanReceiptController@update');
+        Route::delete('/{loanReceipt}', 'LoanReceiptController@destroy');
 
     });
 

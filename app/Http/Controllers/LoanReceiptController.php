@@ -85,12 +85,17 @@ class LoanReceiptController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LoanReceipt  $loanReceipt
+     * @param \App\LoanReceipt $loanReceipt
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(LoanReceipt $loanReceipt)
     {
         if ($loanReceipt->confirmed)
             return back()->with('error', trans('global.global.isConfirmedMessage'));
+
+        $loanReceipt->delete();
+
+        return redirect('/loans/'.$loanReceipt->loan->id);
     }
 }
