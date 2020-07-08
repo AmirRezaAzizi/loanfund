@@ -57,11 +57,6 @@
                                     ورود
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        رمز خود را فراموش کرده ام
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>

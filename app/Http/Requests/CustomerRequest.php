@@ -29,7 +29,8 @@ class CustomerRequest extends FormRequest
             'national' => 'nullable|max:10',
             'mobile' => 'required|max:11',
             'phone' => 'nullable|max:11',
-            'post' => 'nullable|max:10'
+            'post' => 'nullable|max:10',
+            'password' => 'required|min:6',
         ];
     }
 }

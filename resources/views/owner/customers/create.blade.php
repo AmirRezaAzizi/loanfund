@@ -31,6 +31,10 @@
                     شماره ملی الزامی بوده و باید ۱۰ رقم و به زبان فارسی باشد
                 </div>
             </div>
+            <div class="form-group col-md-5">
+                <label for="password">رمز</label>
+                <input type="text" class="form-control text-left @if ($errors->has('password')) is-invalid @endif" id="password" name="password" value="{{ old('password') }}">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-5">

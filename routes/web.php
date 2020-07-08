@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -93,6 +94,35 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
 
     Route::get('/backup', 'BackupController@index')->name('backup.index');
     Route::post('/backup', 'BackupController@store')->name('backup.store');
+});
+
+Route::group(['prefix' => 'c'], function () {
+    Route::get('/', function () {
+        return redirect('/c/login');
+    });
+
+    Route::get('login', function () {
+        return view('customer.login');
+    });
+
+    Route::post('/show', function (Request $request) {
+        $validatedData = $request->validate([
+            'mobile' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        try {
+            $customer = \App\Customer::where('mobile', $validatedData['mobile'])->firstOrFail();
+        } catch (Exception $exception) {
+            return back();
+        }
+
+        if ($customer->password === $validatedData['password'])
+            return view('customer.show', compact('customer'));
+        else
+            return back();
+
+    })->middleware(['throttle:1,3']);
 });
 
 Auth::routes(['register' => false]);

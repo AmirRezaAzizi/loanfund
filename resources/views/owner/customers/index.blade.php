@@ -17,6 +17,7 @@
                 <th>{{ trans('global.customer.id') }}</th>
                 <th>{{ trans('global.customer.lname') }}</th>
                 <th>{{ trans('global.customer.fname') }}</th>
+                <th>رمز</th>
                 <th>{{ trans('global.global.action') }}</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ $customer->id }}</td>
                 <td>{{ $customer->lname }}</td>
                 <td>{{ $customer->fname }}</td>
+                <td>{{ $customer->password }}</td>
                 <td>
                     <a href="/customers/{{ $customer->id }}" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.show') }}</a>
                     <a href="/customers/{{ $customer->id }}/edit" class="btn btn-outline-primary btn-sm" role="button">{{ trans('global.global.edit') }}</a>

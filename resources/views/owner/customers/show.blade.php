@@ -47,6 +47,10 @@
                 <td>{{ $customer->national }}</td>
             </tr>
             <tr>
+                <th>رمز</th>
+                <td>{{ $customer->password }}</td>
+            </tr>
+            <tr>
                 <th>تلفن ثابت</th>
                 <td>{{ $customer->phone }}</td>
             </tr>
