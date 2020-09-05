@@ -46,7 +46,22 @@ class BankbookController extends Controller
         $bankbooks = Bankbook::where('status', 'inactive')->get();
         $title = 'غیرفعال';
 
-        return view('owner.bankbooks.index', compact('bankbooks', 'title'));
+        $totalMonthly = $bankbooks->sum('monthly');
+        $totalBalance = 0;
+        $totalLoanMonthly = 0;
+        $totalLoanBalance = 0;
+
+        foreach ($bankbooks as $bankbook) {
+            $totalBalance += $bankbook->now_balance();
+            $activeLoan = $bankbook->activeLoan();
+
+            if ($activeLoan) {
+                $totalLoanMonthly += $activeLoan->monthly;
+                $totalLoanBalance += $activeLoan->now_balance();
+            }
+        }
+
+        return view('owner.bankbooks.index', compact('bankbooks', 'title', 'totalMonthly', 'totalBalance', 'totalLoanMonthly', 'totalLoanBalance'));
     }
 
     /**

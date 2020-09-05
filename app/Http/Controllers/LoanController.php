@@ -60,6 +60,12 @@ class LoanController extends Controller
      */
     public function store(LoanRequest $request, Bankbook $bankbook)
     {
+        // validation
+        $total = $request->monthly * $request->total_number;
+
+        if ($total != $request->total)
+            return back()->withErrors(['مبلغ وام با تعداد اقساط همخوانی ندارد.']);
+
         $loan = $bankbook->createLoan($request);
 
         return redirect('/loans/' . $loan->id);

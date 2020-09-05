@@ -18,7 +18,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::where('status', 'active')->get();
+        $customers = Customer::where('status', 'active')->get()->sortBy('lname');
+        $customers = $customers->values();
+
         $title = 'فعال';
 
         return view('owner.customers.index', compact('customers', 'title'));

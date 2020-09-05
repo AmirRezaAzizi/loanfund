@@ -115,24 +115,41 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($customer->bankbooks()->active()->get() as $index => $bankbook)
+            <?php
+                $bankbooks = $customer->bankbooks()->active();
+                $totalBalance = 0;
+                $totalLoanBalance = 0;
+                $totalLoanMonthly = 0;
+            ?>
+            @foreach($bankbooks->get() as $index => $bankbook)
                 <tr class="{{ $bankbook-> status == 'inactive' ? 'inactive-bg' : '' }}">
                     <td>{{ $index + 1 }}</td>
                     <td class="text-left">{{ $bankbook->full_code }}</td>
                     <td>@if($bankbook->title){{ $bankbook->title }} @else {{ $bankbook->customer->fname }} {{ $bankbook->customer->lname }} @endif</td>
                     <td class="text-left">{{ number_format($bankbook->monthly) }}</td>
-                    <td class="text-left">{{ number_format($bankbook->now_balance()) }}</td>
+                    <?php
+                    $nowBalance = $bankbook->now_balance();
+                    $totalBalance += $nowBalance;
+                    ?>
+                    <td class="text-left">{{ number_format($nowBalance) }}</td>
                     <td class="text-left">
                         <?php
                             $activeLoan = $bankbook->activeLoan();
                         ?>
                         @if($activeLoan)
-                            {{ number_format($activeLoan->now_balance())  }}
+                            <?php
+                            $loanNowBalance = $activeLoan->now_balance();
+                            $totalLoanBalance += $loanNowBalance;
+                            ?>
+                            {{ number_format($loanNowBalance)  }}
                         @endif
                     </td>
                     <td class="text-left">
                         @if($activeLoan)
                             {{ number_format($activeLoan->monthly)  }}
+                            <?php
+                            $totalLoanMonthly += $activeLoan->monthly;
+                            ?>
                         @endif
                     </td>
                     <td class="text-left">
@@ -146,6 +163,17 @@
                     </td>
                 </tr>
             @endforeach
+            <tr>
+                <td>جمع کل</td>
+                <td></td>
+                <td></td>
+                <td class="text-left">{{ number_format($bankbooks->sum('monthly')) }}</td>
+                <td class="text-left">{{ number_format($totalBalance) }}</td>
+                <td class="text-left">{{ number_format($totalLoanBalance) }}</td>
+                <td class="text-left">{{ number_format($totalLoanMonthly) }}</td>
+                <td></td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
