@@ -94,6 +94,11 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
 
     Route::get('/backup', 'BackupController@index')->name('backup.index');
     Route::post('/backup', 'BackupController@store')->name('backup.store');
+
+    Route::get('/bulk-receipt', [\App\Http\Controllers\BulkReceiptController::class, 'index']);
+    Route::post('/bulk-receipt', [\App\Http\Controllers\BulkReceiptController::class, 'store']);
+
+    Route::get('/yearly-income', [\App\Http\Controllers\YearlyIncomeController::class, 'index']);
 });
 
 Route::group(['prefix' => 'c'], function () {
