@@ -40,6 +40,7 @@ class BulkReceiptController extends Controller
 
         $DBdate = CalendarUtils::createCarbonFromFormat('Y/m/d', convertNumbers($date, true))->format('Y-m-d');
         $bankbooks = Bankbook::active()
+            ->where('monthly', '>', 0)
             ->whereHas('bankbookReceipts', function (Builder $query) use ($DBdate) {
                 $query->where('date', $DBdate)
                     ->where('type', 'deposit');
@@ -82,6 +83,7 @@ class BulkReceiptController extends Controller
 
         $DBdate = CalendarUtils::createCarbonFromFormat('Y/m/d', convertNumbers($date, true))->format('Y-m-d');
         $loans = Loan::active()
+            ->where('monthly', '>', 0)
             ->whereHas('loanReceipts', function (Builder $query) use ($DBdate) {
                 $query->where('date', $DBdate);
             }, '==', 0)
