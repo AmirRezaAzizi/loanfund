@@ -31,18 +31,18 @@
                     دفتر روزنامه
                 </a>
             </li>
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link {{ request()->is('bulk-receipt*') ? 'active' : ''}}" href="/bulk-receipt">--}}
-{{--                    <i class="fas fa-users"></i>--}}
-{{--                    قبوض گروهی--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link {{ request()->is('yearly-income*') ? 'active' : ''}}" href="/yearly-income">--}}
-{{--                    <i class="fas fa-users"></i>--}}
-{{--                    لیست دریافتی--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('bulk-receipt*') ? 'active' : ''}}" href="/bulk-receipt">
+                    <i class="fas fa-users"></i>
+                    قبوض گروهی
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('yearly-income*') ? 'active' : ''}}" href="/yearly-income">
+                    <i class="fas fa-users"></i>
+                    لیست دریافتی
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('backup*') ? 'active' : ''}}" href="/backup">
                     <i class="fas fa-users"></i>
