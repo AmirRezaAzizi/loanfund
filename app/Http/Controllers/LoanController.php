@@ -25,7 +25,7 @@ class LoanController extends Controller
     }
     public function ia_index()
     {
-        $loans = Loan::where('status', 'inactive')->get();
+        $loans = Loan::where('status', 'inactive')->orderByDesc('closed_date')->get();
         $title = 'غیرفعال';
 
         return view('owner.loans.index', compact('loans', 'title'));

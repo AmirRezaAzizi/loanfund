@@ -43,7 +43,7 @@ class BankbookController extends Controller
     // inactive
     public function ia_index()
     {
-        $bankbooks = Bankbook::where('status', 'inactive')->get();
+        $bankbooks = Bankbook::where('status', 'inactive')->orderByDesc('closed_date')->get();
         $title = 'غیرفعال';
 
         $totalMonthly = $bankbooks->sum('monthly');

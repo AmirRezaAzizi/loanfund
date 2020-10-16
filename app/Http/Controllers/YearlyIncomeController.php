@@ -27,7 +27,7 @@ class YearlyIncomeController extends Controller
         }])->with(['bankbooks.bankbookReceipts'=> function ($query) use ($startDate, $endDate) {
             $query->where('date', '>=', $startDate)
                 ->where('date', '<=', $endDate);
-        }])->get(['id', 'fname', 'lname'])->toArray();
+        }])->get(['id', 'fname', 'lname'])->sortBy('lname')->toArray();
 
         $monthIndexes = [
             "01" => 0,

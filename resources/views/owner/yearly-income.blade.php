@@ -35,7 +35,7 @@ $thisMonthName = \Morilog\Jalali\Jalalian::forge('today')->format('%B ماه %Y'
             <tr>
                 <td></td>
                 <td></td>
-                <td class="font-weight-bold">دریافتی ماه</td>
+                <td class="font-weight-bold">دریافتی این ماه</td>
                 @foreach(getPersianMonths() as $index => $name)
                     <td class="text-center font-weight-bold">{{ number_format($totalMonthlyIncome[$index]) }}</td>
                 @endforeach
@@ -44,7 +44,10 @@ $thisMonthName = \Morilog\Jalali\Jalalian::forge('today')->format('%B ماه %Y'
             <tr>
                 <td></td>
                 <td></td>
-                <td class="font-weight-bold">مانده از ماه قبل</td>
+                <td class="font-weight-bold">مانده از ماه قبل
+                    <br>
+                    (صندوق)
+                </td>
                 <?php
                 $balanceBeforeStartDateCopy = $balanceBeforeStartDate;
                 ?>
@@ -61,16 +64,30 @@ $thisMonthName = \Morilog\Jalali\Jalalian::forge('today')->format('%B ماه %Y'
             <tr>
                 <td></td>
                 <td></td>
-                <td class="font-weight-bold">جمع وام های ماه</td>
+                <td class="font-weight-bold">جمع کل</td>
                 @foreach(getPersianMonths() as $index => $name)
-                    <td class="text-center font-weight-bold">{{ number_format($loanMonthlyPaid[$index]) }}</td>
+                    @if($index == '01')
+                        <td class="text-center font-weight-bold">{{ number_format(($balanceBeforeStartDateCopy + $totalMonthlyIncome[$index])) }}</td>
+                    @else
+                        <td class="text-center font-weight-bold">{{ number_format((($balanceBeforeStartDateCopy += $totalMonthlyIncome[sprintf('%02d', $index-1)]) + $totalMonthlyIncome[$index])) }}</td>
+                    @endif
+
                 @endforeach
             </tr>
 
             <tr>
                 <td></td>
                 <td></td>
-                <td class="font-weight-bold">جمع کل</td>
+                <td class="font-weight-bold">جمع وام های پرداختی</td>
+                @foreach(getPersianMonths() as $index => $name)
+                    <td class="text-center font-weight-bold">{{ number_format($loanMonthlyPaid[$index]) }} ({{ number_format($loanMonthlyCount[$index]) }})</td>
+                @endforeach
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="font-weight-bold">مانده برای ماه بعد</td>
                 @foreach(getPersianMonths() as $index => $name)
                     @if($index == '01')
                         <td class="text-center font-weight-bold">{{ number_format(($balanceBeforeStartDateCopy + $totalMonthlyIncome[$index]) - $loanMonthlyPaid[$index]) }}</td>
@@ -78,16 +95,6 @@ $thisMonthName = \Morilog\Jalali\Jalalian::forge('today')->format('%B ماه %Y'
                         <td class="text-center font-weight-bold">{{ number_format((($balanceBeforeStartDateCopy += $totalMonthlyIncome[sprintf('%02d', $index-1)]) + $totalMonthlyIncome[$index]) - $loanMonthlyPaid[$index]) }}</td>
                     @endif
 
-                @endforeach
-            </tr>
-
-
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="font-weight-bold">تعداد وام های ماه</td>
-                @foreach(getPersianMonths() as $index => $name)
-                    <td class="text-center font-weight-bold">{{ number_format($loanMonthlyCount[$index]) }}</td>
                 @endforeach
             </tr>
 
