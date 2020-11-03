@@ -103,7 +103,26 @@ class YearlyIncomeController extends Controller
 
         }
 
-        return view('owner.yearly-income', compact('customers', 'totalMonthlyIncome', 'monthIndexes', 'balanceBeforeStartDate', 'loanMonthlyCount', 'loanMonthlyPaid'));
+        foreach ($monthIndexes as $index => $value) {
+            if ($index > $persianMonth) {
+                $totalMonthlyBalance[$index] = 0;
+                $balanceForNextMonth[$index] = 0;
+                $balanceFromPreviousMonth[$index] = 0;
+                continue;
+            }
+
+            if ($index == '01') {
+                $totalMonthlyBalance[$index] = $balanceBeforeStartDate + $totalMonthlyIncome[$index];
+                $balanceForNextMonth[$index] = $totalMonthlyBalance[$index] - $loanMonthlyPaid[$index];
+                $balanceFromPreviousMonth[$index] = $balanceBeforeStartDate;
+                continue;
+            }
+            $balanceFromPreviousMonth[$index] = $balanceForNextMonth[sprintf('%02d', $index-1)];
+            $totalMonthlyBalance[$index] = $balanceForNextMonth[sprintf('%02d', $index-1)] + $totalMonthlyIncome[$index];
+            $balanceForNextMonth[$index] = $totalMonthlyBalance[$index] - $loanMonthlyPaid[$index];
+        }
+
+        return view('owner.yearly-income', compact('customers', 'totalMonthlyIncome', 'monthIndexes', 'balanceBeforeStartDate', 'loanMonthlyCount', 'loanMonthlyPaid', 'totalMonthlyBalance', 'balanceForNextMonth', 'balanceFromPreviousMonth'));
     }
 
     protected function balanceBeforeDate($data)
