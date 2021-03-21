@@ -133,6 +133,12 @@ class YearlyIncomeController extends Controller
             $query->where('date', '<', $data);
         }])->get(['id', 'fname', 'lname'])->toArray();
 
+        $loans = Loan::where('created_date', '<', $data)->get(['id', 'created_date', 'total']);
+        $totalLoanPaid = 0;
+        foreach ($loans as $loan) {
+            $totalLoanPaid += $loan->total;
+        }
+
         $totalLoanReceipts = 0;
         $totalBankbookDepositReceipts = 0;
         $totalBankbookWithdrawReceipts = 0;
@@ -161,7 +167,7 @@ class YearlyIncomeController extends Controller
             }
         }
 
-        return ($totalLoanReceipts + $totalBankbookDepositReceipts) - $totalBankbookWithdrawReceipts;
+        return (($totalLoanReceipts + $totalBankbookDepositReceipts) - $totalBankbookWithdrawReceipts) - $totalLoanPaid;
 
     }
 
