@@ -63,11 +63,12 @@ class Loan extends BaseModel
     public function setCreatedDateAttribute($value)
     {
         if ($value) {
-            $created_date = date('Y/m/d',strtotime(convertNumbers($value, true)));
-            $this->attributes['created_date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', $created_date)->format('Y-m-d');
+
+            $this->attributes['created_date'] = CalendarUtils::createCarbonFromFormat('Y/m/d', convertNumbers($value, true))->format('Y-m-d');
         } else {
             $this->attributes['created_date'] = null;
         }
+
     }
 
     public function scopeActive($query)
