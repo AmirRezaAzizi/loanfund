@@ -1,10 +1,16 @@
 <?php
 $thisMonthName = \Morilog\Jalali\Jalalian::forge('today')->format('%B ماه %Y');
+$thisYear = jdate()->format('Y');
+$colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
 ?>
 @extends('owner/master')
 
 @section('page-title')
-    <h1 class="h2">مجموع دریافتی ماهیانه</h1>
+    <h1 class="h2">مجموع دریافتی ماهیانه
+    @for($i = $thisYear; $i >= 1399; $i--)
+        <a href="{{ \Illuminate\Support\Facades\URL::to("/yearly-income/$i") }}" class="btn btn-{{ $colors[rand(0,6)] }}">{{ $i }}</a>
+    @endfor
+    </h1>
 @endsection
 
 @section('content')

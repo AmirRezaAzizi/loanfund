@@ -11,10 +11,20 @@ use Morilog\Jalali\Jalalian;
 
 class YearlyIncomeController extends Controller
 {
-    public function index()
+    public function index($persianYear = null)
     {
-        $persianYear = jdate()->format('Y');
-        $persianMonth = jdate()->format('m');
+        if (is_null($persianYear)) {
+            $persianYear = jdate()->format('Y');
+            $persianMonth = jdate()->format('m');
+        } else {
+            $thisYear = jdate()->format('Y');
+            if ($thisYear == $persianYear) {
+                $persianMonth = jdate()->format('m');
+            } else {
+                $persianMonth = '12';
+            }
+        }
+
         $startDate = CalendarUtils::createCarbonFromFormat('Y/m/d', $persianYear . '/01/01')->format('Y-m-d');
         $persianEnd = jdate()->isLeapYear() ? $persianYear . '/12/30' : $persianYear . '/12/29';
         $endDate = CalendarUtils::createCarbonFromFormat('Y/m/d', $persianEnd)->format('Y-m-d');

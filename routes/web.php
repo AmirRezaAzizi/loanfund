@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth', 'throttle:60,1']], function () {
     Route::post('/bulk-receipt', [\App\Http\Controllers\BulkReceiptController::class, 'store']);
 
     Route::get('/yearly-income', [\App\Http\Controllers\YearlyIncomeController::class, 'index']);
+    Route::get('/yearly-income/{year}', [\App\Http\Controllers\YearlyIncomeController::class, 'index']);
 });
 
 Route::group(['prefix' => 'c'], function () {
