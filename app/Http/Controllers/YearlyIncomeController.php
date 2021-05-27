@@ -26,7 +26,7 @@ class YearlyIncomeController extends Controller
         }
 
         $startDate = CalendarUtils::createCarbonFromFormat('Y/m/d', $persianYear . '/01/01')->format('Y-m-d');
-        $persianEnd = jdate()->isLeapYear() ? $persianYear . '/12/30' : $persianYear . '/12/29';
+        $persianEnd = (new Jalalian($persianYear, 1, 1))->isLeapYear() ? $persianYear . '/12/30' : $persianYear . '/12/29';
         $endDate = CalendarUtils::createCarbonFromFormat('Y/m/d', $persianEnd)->format('Y-m-d');
 
         $balanceBeforeStartDate = $this->balanceBeforeDate($startDate);
